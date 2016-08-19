@@ -100,8 +100,8 @@
 随着应用不断迭代，业务线的扩展,应用越来越大，那么很不幸，总有一天，当你编译的时候，会遇到一个类似下面的错误：
 1Conversion to Dalvik format failed: Unable to execute dex: method ID not in [0, 0xffff]: 65536
 没错，这就是臭名昭著的65536方法数超限问题。具体原理可以参考由A">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-d635a15dd4715c8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-19T20:14:54.000Z">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/0063dNt1jw1f6zsc3wnlyj30qo0k0jru.jpg">
+<meta property="og:updated_time" content="2016-08-19T22:02:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ZeusPlugin:掌阅Android App插件补丁实践">
 <meta name="twitter:description" content="遇到问题
@@ -109,7 +109,7 @@
 随着应用不断迭代，业务线的扩展,应用越来越大，那么很不幸，总有一天，当你编译的时候，会遇到一个类似下面的错误：
 1Conversion to Dalvik format failed: Unable to execute dex: method ID not in [0, 0xffff]: 65536
 没错，这就是臭名昭著的65536方法数超限问题。具体原理可以参考由A">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1625938-d635a15dd4715c8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw690/0063dNt1jw1f6zsc3wnlyj30qo0k0jru.jpg">
 
 
 
@@ -379,8 +379,7 @@
 </ul>
 <p>以上分析都是基于Android 6.0的源码，其他版本可能有少许差异，但不影响主流程，限于篇幅问题，在此不一一展开分析，只重点分析相关的关键几个步骤。</p>
 <p>为什么提到<strong>Android系统加载APK</strong>的流程，因为分析完<strong>Android系统加载APK</strong>的流程，插件补丁方案也就基本能实现出来了，下面我展开说一下。</p>
-<p>####插件安装</p>
-<p>从APK安装过程分析得知</p>
+<h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>从APK安装过程分析得知</p>
 <ol>
 <li><strong>配置文件<code>AndroidManifest.xml</code>是在应用安装时就已经解析并记录，所以插件的AndroidManifest.xml配置无法生效</strong></li>
 <li><strong>每个APK安装都是独享空间的，不同APK、同一个APK的不同时间安装都是完全独立的</strong>。这样做，个人觉得大大降低了系统的复杂度，而且清晰明了。在这点上， <a href="https://github.com/iReaderAndroid/ZeusPlugin" target="_blank" rel="external">ZeusPlugin</a>插件安装策略几乎就是仿照系统设计的。具体可以参考 <a href="https://github.com/iReaderAndroid/ZeusPlugin" target="_blank" rel="external">ZeusPlugin</a>源码，在此不展开描述。</li>
@@ -407,7 +406,7 @@
 <p>考虑到类的隔离性以及框架拓展性，<a href="https://github.com/iReaderAndroid/ZeusPlugin" target="_blank" rel="external">ZeusPlugin</a>目前使用的方案是第二种，根据类加载器的双亲委派模型，我们可以实现一套插件补丁类加载方案，如下图：</p>
 </li>
 </ol>
-<p><img src="http://upload-images.jianshu.io/upload_images/1625938-d635a15dd4715c8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类加载.jpg"></p>
+<p><img src="http://ww4.sinaimg.cn/mw690/0063dNt1jw1f6zsc3wnlyj30qo0k0jru.jpg" alt="类加载.jpg"></p>
 <blockquote>
 <ol>
 <li>我们通过反射修改系统的ClassLoader为ZeusClassLoader，其内包含多个ZeusPluginClassLoader</li>
@@ -623,7 +622,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到问题"><span class="nav-number">1.</span> <span class="nav-text">遇到问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android系统加载APK"><span class="nav-number">3.1.</span> <span class="nav-text">Android系统加载APK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类加载"><span class="nav-number">3.2.</span> <span class="nav-text">类加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源加载"><span class="nav-number">3.3.</span> <span class="nav-text">资源加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TODO"><span class="nav-number">4.</span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub"><span class="nav-number">5.</span> <span class="nav-text">GitHub</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到问题"><span class="nav-number">1.</span> <span class="nav-text">遇到问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android系统加载APK"><span class="nav-number">3.1.</span> <span class="nav-text">Android系统加载APK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件安装"><span class="nav-number">3.2.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类加载"><span class="nav-number">3.3.</span> <span class="nav-text">类加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源加载"><span class="nav-number">3.4.</span> <span class="nav-text">资源加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TODO"><span class="nav-number">4.</span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub"><span class="nav-number">5.</span> <span class="nav-text">GitHub</span></a></li></ol></div>
             
           </div>
         </section>
