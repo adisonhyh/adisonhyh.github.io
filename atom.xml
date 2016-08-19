@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-19T21:23:17.000Z</updated>
+  <updated>2016-08-19T21:26:36.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2016/08/20/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2016/08/20/《深入理解java虚拟机》阅读笔记/</id>
     <published>2016-08-19T21:20:10.000Z</published>
-    <updated>2016-08-19T21:23:17.000Z</updated>
+    <updated>2016-08-19T21:26:36.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。&lt;!—more—&gt;根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
+    <content type="html"><![CDATA[<h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。<a id="more"></a>根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1625938-e75610d85be6218a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运行时数据区域"></p>
 <h4 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1. 程序计数器"></a>1.1. 程序计数器</h4><p>程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。</p>
 <p>此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
@@ -247,7 +247,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;1-运行时数据区域&quot;&gt;&lt;a href=&quot;#1-运行时数据区域&quot; class=&quot;headerlink&quot; title=&quot;1.运行时数据区域&quot;&gt;&lt;/a&gt;1.运行时数据区域&lt;/h3&gt;&lt;p&gt;Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域
+      &lt;h3 id=&quot;1-运行时数据区域&quot;&gt;&lt;a href=&quot;#1-运行时数据区域&quot; class=&quot;headerlink&quot; title=&quot;1.运行时数据区域&quot;&gt;&lt;/a&gt;1.运行时数据区域&lt;/h3&gt;&lt;p&gt;Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。
     
     </summary>
     
@@ -263,10 +263,10 @@
     <link href="http://yoursite.com/2016/08/20/Android-%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/"/>
     <id>http://yoursite.com/2016/08/20/Android-调试技巧/</id>
     <published>2016-08-19T21:18:07.000Z</published>
-    <updated>2016-08-19T21:22:55.000Z</updated>
+    <updated>2016-08-19T21:26:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。</p>
-<p>&lt;!—more—&gt;</p>
+<a id="more"></a>
 <p>###Debug技巧</p>
 <p>断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。</p>
 <ul>
@@ -377,9 +377,6 @@
     <summary type="html">
     
       &lt;p&gt;作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。&lt;/p&gt;
-&lt;p&gt;&amp;lt;!—more—&amp;gt;&lt;/p&gt;
-&lt;p&gt;###Debug技巧&lt;/p&gt;
-&lt;p&gt;断点debug大家都会使用，但除了单步调试之外，用
     
     </summary>
     
@@ -395,11 +392,11 @@
     <link href="http://yoursite.com/2016/08/20/Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F-%E2%80%94%E2%80%94%E6%A3%80%E6%B5%8B%E3%80%81%E8%A7%A3%E5%86%B3%E5%92%8C%E9%81%BF%E5%85%8D/"/>
     <id>http://yoursite.com/2016/08/20/Android内存泄漏-——检测、解决和避免/</id>
     <published>2016-08-19T21:15:26.000Z</published>
-    <updated>2016-08-19T21:22:36.000Z</updated>
+    <updated>2016-08-19T21:26:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分配更多的资源，并不可避免地崩溃。在Java中这往往导致一个<strong>OutOfMemoryException异常</strong>被抛出。在某些罕见的情况下，泄露的类甚至可以逗留很长时间来接收已注册的回调，这会导致一些非常奇怪的错误，并往往抛出臭名昭著的<strong>IllegalStateException异常</strong>。</p>
 <p>为了帮助他人在代码分析上减少花费时间，我将介绍内存泄漏的几个例子，阐述在Android Studio中如何检查它们，当然最重要的是如何将其解决。</p>
-<p>&lt;!—more—&gt;</p>
+<a id="more"></a>
 <h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><p>在这篇文章中的代码示例的目的是为了促进大家对内存管理有更深的了解，特别是在java。其通用的体系结构，线程管理和代码示例的 HTTP 请求处理在真实的生产环境并不是理想的，这些示例仅仅为了说明一个问题：在Android中，内存泄漏是一件要考虑的事情。</p>
 <h4 id="监听器注册"><a href="#监听器注册" class="headerlink" title="监听器注册"></a>监听器注册</h4><p>这真的不应该是个问题，但我经常看到各种注册方法的调用，但他们对应的注销方法却无处可寻。这是泄漏的潜在来源，因为这些方法明确设计成互相抵消。如果没有调用注销方法，被引用的对象已经被终止后，监听实例可能会持有该对象很长的时间，从而导致泄漏内存。在Android中，如果该对象是一个Activity对象，是特别麻烦的，因为他们往往拥有大量的数据。让我告诉你，可能是什么样子。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeaksActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">LocationListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> LocationManager locationManager;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_leaks);</div><div class="line">        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);</div><div class="line">        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,</div><div class="line">                TimeUnit.MINUTES.toMillis(<span class="number">5</span>), <span class="number">100</span>, <span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Listener implementation omitted</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -442,7 +439,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分
+      &lt;p&gt;作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分配更多的资源，并不可避免地崩溃。在Java中这往往导致一个&lt;strong&gt;OutOfMemoryException异常&lt;/strong&gt;被抛出。在某些罕见的情况下，泄露的类甚至可以逗留很长时间来接收已注册的回调，这会导致一些非常奇怪的错误，并往往抛出臭名昭著的&lt;strong&gt;IllegalStateException异常&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;为了帮助他人在代码分析上减少花费时间，我将介绍内存泄漏的几个例子，阐述在Android Studio中如何检查它们，当然最重要的是如何将其解决。&lt;/p&gt;
     
     </summary>
     

@@ -86,16 +86,12 @@
 
 
 
-<meta name="description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。&amp;lt;!—more—&amp;gt;根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。
-
-1.1">
+<meta name="description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解java虚拟机》阅读笔记">
 <meta property="og:url" content="http://yoursite.com/2016/08/20/《深入理解java虚拟机》阅读笔记/index.html">
 <meta property="og:site_name" content="Adison's Notes">
-<meta property="og:description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。&amp;lt;!—more—&amp;gt;根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。
-
-1.1">
+<meta property="og:description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-e75610d85be6218a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-642d10d9a3783677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-48f3e301da2083bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -105,12 +101,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-cc5c6dfd51bdcd1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-c582fefc6281c9ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-8e5b7fab300d7caf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-19T21:23:17.000Z">
+<meta property="og:updated_time" content="2016-08-19T21:26:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解java虚拟机》阅读笔记">
-<meta name="twitter:description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。&amp;lt;!—more—&amp;gt;根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。
-
-1.1">
+<meta name="twitter:description" content="1.运行时数据区域Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1625938-e75610d85be6218a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -330,7 +324,7 @@
       
 
       
-        <h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。&lt;!—more—&gt;根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
+        <h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。<a id="more"></a>根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1625938-e75610d85be6218a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运行时数据区域"></p>
 <h4 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1. 程序计数器"></a>1.1. 程序计数器</h4><p>程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。</p>
 <p>此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
