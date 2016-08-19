@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="调试技巧," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Adison's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。
+&amp;lt;!—more—&amp;gt;
+###Debug技巧
+断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。
+
+临时断点
+
+顾名思义，临时性断点，在第一次触发后会自动被移除
+
+
+触发键：Alt + 鼠标左键">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 调试技巧">
+<meta property="og:url" content="http://yoursite.com/2016/08/20/Android-调试技巧/index.html">
+<meta property="og:site_name" content="Adison's Notes">
+<meta property="og:description" content="作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。
+&amp;lt;!—more—&amp;gt;
+###Debug技巧
+断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。
+
+临时断点
+
+顾名思义，临时性断点，在第一次触发后会自动被移除
+
+
+触发键：Alt + 鼠标左键">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-bf9a445a1d57f412.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-4d0541161f861752.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-988d840e0e8d2d01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-988d840e0e8d2d01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-2af533ec6485592d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-939078bf77522ad5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-a59bfb2b68d64919.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1625938-59c2d00b9c46c609.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-08-19T21:22:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 调试技巧">
+<meta name="twitter:description" content="作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。
+&amp;lt;!—more—&amp;gt;
+###Debug技巧
+断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。
+
+临时断点
+
+顾名思义，临时性断点，在第一次触发后会自动被移除
+
+
+触发键：Alt + 鼠标左键">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1625938-bf9a445a1d57f412.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 9079057,
+      author: '作者'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/20/Android-调试技巧/"/>
+
+  <title> Android 调试技巧 | Adison's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Adison's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android 调试技巧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-20T05:18:07+08:00" content="2016-08-20">
+              2016-08-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/20/Android-调试技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/Android-调试技巧/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。</p>
+<p>&lt;!—more—&gt;</p>
+<p>###Debug技巧</p>
+<p>断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。</p>
+<ul>
+<li>临时断点</li>
+</ul>
+<p>顾名思义，临时性断点，在第一次触发后会自动被移除</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-bf9a445a1d57f412.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="临时断点"></p>
+<blockquote>
+<p>触发键：Alt + 鼠标左键</p>
+</blockquote>
+<ul>
+<li>禁用断点</li>
+</ul>
+<p>当你需要临时禁用一些断点，但不想下一次再重新创建这些断点的时候有用</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-4d0541161f861752.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="禁用断点"></p>
+<blockquote>
+<p>触发键：Alt + 鼠标左键</p>
+</blockquote>
+<ul>
+<li>计算表达式</li>
+</ul>
+<p>当你需要临时改变某个变量的值或者查看其内部方法返回值时很有用</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-988d840e0e8d2d01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算表达式"></p>
+<blockquote>
+<p>触发键：Alt + F8</p>
+</blockquote>
+<ul>
+<li>计算表达式</li>
+</ul>
+<p>当你需要临时改变某个变量的值或者查看其内部方法返回值时很有用</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-988d840e0e8d2d01.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算表达式"></p>
+<blockquote>
+<p>触发键：Alt + F8</p>
+</blockquote>
+<ul>
+<li>检查表达式</li>
+</ul>
+<p>不需要打开表达式计算框就可以看到计算结果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-2af533ec6485592d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="检查表达式"></p>
+<blockquote>
+<p>触发键： 选中表达式，Alt + 鼠标左键</p>
+</blockquote>
+<ul>
+<li>条件断点</li>
+</ul>
+<p>在特定条件下才断点</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-939078bf77522ad5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="条件断点"></p>
+<blockquote>
+<p>触发键：鼠标右键点击断点</p>
+</blockquote>
+<ul>
+<li>日志断点</li>
+</ul>
+<p>厌倦了每次输出一个log都得重新发布项目？试试日志断点，无痛解决你的问题</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-a59bfb2b68d64919.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="日志断点"></p>
+<blockquote>
+<p>触发键：鼠标右键点击断点后–&gt;more–&gt;勾掉suspend 属性（应用不挂起）–&gt;填上想要输出的日志信息</p>
+</blockquote>
+<p>###ADB技巧</p>
+<p>adb作为android开发一个常用的工具，神马install,uninstall,push,pull命令就不用说了，它还有很多有用命令。。</p>
+<ul>
+<li>删除文件夹及其下面所有文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">adb shell rm -r /sdcard/xx/</div></pre></td></tr></table></figure>
+<ul>
+<li>应用程序恢复初始状态:清除数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">adb shell pm clear com.xx.xx(包名)</div></pre></td></tr></table></figure>
+<ul>
+<li>测试软件的稳定性、健壮</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">adb shell monkey --ignore-crashes --ignore-timeouts --ignore-security-exceptions --monitor-native-crashes --ignore-native-crashes -s 100 -v -v --throttle 100 -p com.xx.xx(包名) 10000 &gt; ~/Downloads/monkey_test.txt</div></pre></td></tr></table></figure>
+<ul>
+<li>获取设备分辨率</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">adb shell wm size</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">adb shell dumpsys display | grep  DisplayDeviceInfo</div></pre></td></tr></table></figure>
+<blockquote>
+<p>adb shell dumpsys： 个人觉得是最有用的adb命令，默认打印出当前系统所有service信息，在后面可加上具体的服务名。  需要列出当前运行的服务，可运行：  <figure class="highlight plain"><figcaption><span>shell dumpsys | grep DUMP ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 获取内存信息</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>adb shell dumpsys meminfo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 要获取具体应用的内存信息，可加上包名</div></pre></td></tr></table></figure>
+<p>adb shell dumpsys meminfo com.xx.xx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;通常来说： Heap Free &gt; Pss Total &gt; Private Dirty</div><div class="line"></div><div class="line">具体参数说明，可以参考 [官方文档](http://developer.android.com/intl/zh-cn/tools/debugging/debugging-memory.html)</div><div class="line"></div><div class="line">- 列出系统所有属性</div></pre></td></tr></table></figure>
+<p>adb shell getprop</p>
+<blockquote>
+<p>获取分辨率密度：adb shell getprop |grep ro.sf.lcd_density</p>
+<p>获取系统版本：  adb shell getprop |grep ro.build.version.release</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 查看Activity任务栈</div></pre></td></tr></table></figure>
+<p>adb shell dumpsys activity activities | sed -En -e ‘/Running activities/,/Run #0/p’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 启动默认浏览器打开一个网页</div></pre></td></tr></table></figure>
+<p>adb shell am start -a android.intent.action.VIEW -d <a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 网络调试技巧</div><div class="line"></div><div class="line">日常开发中，不可避免的需要联网操作，这可能就需要懂一些网络调试技巧了，而抓包就是最基本的网络调试技巧。。</div><div class="line"></div><div class="line">#### HTTP或HTTPS抓包( finddler(windows)/charles)</div><div class="line"></div><div class="line">这个就不多说了，网上教程一大堆。。</div><div class="line"></div><div class="line">[charles使用教程](http://jingyan.baidu.com/article/335530da80e70319ca41c37c.html?qq-pf-to=pcqq.group)</div><div class="line"></div><div class="line">[finddler使用教程](http://www.cnblogs.com/TankXiao/p/3063871.html)</div><div class="line"></div><div class="line">#### TCP非实时抓包（tcpdump）</div><div class="line"></div><div class="line">前提：Root</div><div class="line"></div><div class="line">- 从 [这里](http://www.tcpdump.org/#latest-release) 下载 tcpdump</div><div class="line"></div><div class="line">- 将 tcpdump 放入手机： ```adb push ~/tcpdump /data/local/tcpdump</div></pre></td></tr></table></figure>
+<ul>
+<li><p>将 tcpdump 的权限变为可执行：<figure class="highlight plain"><figcaption><span>+x tcpdump```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 开始抓包： ```/data/local/tcpdump -vv -s 0 -w /mnt/sdcard/pcapture.pcap```。其中 &quot;-s 0&quot; 表示每个包都抓取全部长度，而不是部分长度；&quot;-w /mnt/sdcard/pcapture.pcap&quot; 表示抓取的包写入指定文件；&quot;-vv&quot; 表示显示多一些信息，如果要显示更多信息可以用 &quot;-vvv&quot;</div><div class="line"></div><div class="line">- 按下 &quot;contrl+c&quot; 结束抓包。</div><div class="line"></div><div class="line">- 将&quot;/mnt/sdcard/pcapture.pcap&quot; 移到电脑上： ```adb pull /mnt/sdcard/pcapture.pcap &lt;指定目录&gt;</div></pre></td></tr></table></figure></p>
+</li>
+<li><p>通过 Wireshark 或者charles进行分析。</p>
+</li>
+</ul>
+<h4 id="TCP实时抓包-wireshark＋tcpdump"><a href="#TCP实时抓包-wireshark＋tcpdump" class="headerlink" title="TCP实时抓包(wireshark＋tcpdump)"></a>TCP实时抓包(wireshark＋tcpdump)</h4><p><a href="http://www.phonesdevelopers.com/1693228/" target="_blank" rel="external">参考文章</a></p>
+<p>基本思路：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1625938-59c2d00b9c46c609.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="基本思路"></p>
+<ul>
+<li>手机开始抓包:在 adb shell 中运行 <figure class="highlight plain"><figcaption><span>-n -s 0 -w - | nc -l -p 12345```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 将手机抓的包传送到电脑的 Wireshark 中:另开一个终端运行 </div><div class="line"></div><div class="line">```j</div><div class="line">adb forward tcp:12345 tcp:12345 &amp;&amp; nc 127.0.0.1 12345 | /Applications/Wireshark.app/Contents/MacOS/wireshark -k -S -i - ```</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Adison wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/调试技巧/" rel="tag">#调试技巧</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/20/Android内存泄漏-——检测、解决和避免/" rel="next" title="Android内存泄漏 ——检测、解决和避免">
+                <i class="fa fa-chevron-left"></i> Android内存泄漏 ——检测、解决和避免
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/20/《深入理解java虚拟机》阅读笔记/" rel="prev" title="《深入理解java虚拟机》阅读笔记">
+                《深入理解java虚拟机》阅读笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/20/Android-调试技巧/"
+           data-title="Android 调试技巧" data-url="http://yoursite.com/2016/08/20/Android-调试技巧/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Adison" />
+          <p class="site-author-name" itemprop="name">Adison</p>
+          <p class="site-description motion-element" itemprop="description">オレは海贼王になる男だ！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/adisonhyh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/adisonhyh" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP实时抓包-wireshark＋tcpdump"><span class="nav-number">1.</span> <span class="nav-text">TCP实时抓包(wireshark＋tcpdump)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adison</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"adison"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
