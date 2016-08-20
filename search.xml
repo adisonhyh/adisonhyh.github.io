@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Adison&#39;s Notes</title>
+<search>
   
-  <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.adisonhyh.com/"/>
-  <updated>2016-08-20T15:06:05.000Z</updated>
-  <id>http://blog.adisonhyh.com/</id>
-  
-  <author>
-    <name>Adison</name>
     
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>《深入理解java虚拟机》阅读笔记</title>
-    <link href="http://blog.adisonhyh.com/2016/08/20/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    <id>http://blog.adisonhyh.com/2016/08/20/《深入理解java虚拟机》阅读笔记/</id>
-    <published>2016-08-19T21:20:10.000Z</published>
-    <updated>2016-08-20T15:06:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。<a id="more"></a>根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
+    <entry>
+      <title><![CDATA[《深入理解java虚拟机》阅读笔记]]></title>
+      <url>http://blog.adisonhyh.com/2016/08/20/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。<a id="more"></a>根据《Java虚拟机规范（Java SE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示。</p>
 <p><img src="http://ww3.sinaimg.cn/mw690/0063dNt1jw1f6zs6drlusj31g814sthk.jpg" alt="运行时数据区域"></p>
 <h4 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1. 程序计数器"></a>1.1. 程序计数器</h4><p>程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。</p>
 <p>此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
@@ -244,28 +228,12 @@
 </li>
 </ul>
 ]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-运行时数据区域&quot;&gt;&lt;a href=&quot;#1-运行时数据区域&quot; class=&quot;headerlink&quot; title=&quot;1.运行时数据区域&quot;&gt;&lt;/a&gt;1.运行时数据区域&lt;/h3&gt;&lt;p&gt;Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。
-    
-    </summary>
-    
-      <category term="阅读笔记" scheme="http://blog.adisonhyh.com/categories/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="java" scheme="http://blog.adisonhyh.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android 调试技巧</title>
-    <link href="http://blog.adisonhyh.com/2016/08/20/Android-%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/"/>
-    <id>http://blog.adisonhyh.com/2016/08/20/Android-调试技巧/</id>
-    <published>2016-08-19T21:18:07.000Z</published>
-    <updated>2016-08-20T15:05:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。</p>
+    <entry>
+      <title><![CDATA[Android 调试技巧]]></title>
+      <url>http://blog.adisonhyh.com/2016/08/20/Android-%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/</url>
+      <content type="html"><![CDATA[<p>作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。</p>
 <a id="more"></a>
 <h3 id="Debug技巧"><a href="#Debug技巧" class="headerlink" title="Debug技巧"></a>Debug技巧</h3><p>断点debug大家都会使用，但除了单步调试之外，用过条件断点，日志断点么，一些很有用的debug技巧或许你不知道。。</p>
 <ul>
@@ -402,28 +370,12 @@
 </li>
 </ul>
 ]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;p&gt;作为一名码农，代码调试是一项不可或缺的工作，过程中总能发现一下能提高效率、有用的小技巧，此文特总结一些工作用到的一些调试技巧。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://blog.adisonhyh.com/categories/Android/"/>
-    
-    
-      <category term="调试技巧" scheme="http://blog.adisonhyh.com/tags/%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android内存泄漏 ——检测、解决和避免</title>
-    <link href="http://blog.adisonhyh.com/2016/08/20/Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F-%E2%80%94%E2%80%94%E6%A3%80%E6%B5%8B%E3%80%81%E8%A7%A3%E5%86%B3%E5%92%8C%E9%81%BF%E5%85%8D/"/>
-    <id>http://blog.adisonhyh.com/2016/08/20/Android内存泄漏-——检测、解决和避免/</id>
-    <published>2016-08-19T21:15:26.000Z</published>
-    <updated>2016-08-20T15:05:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分配更多的资源，并不可避免地崩溃。在Java中这往往导致一个<strong>OutOfMemoryException异常</strong>被抛出。在某些罕见的情况下，泄露的类甚至可以逗留很长时间来接收已注册的回调，这会导致一些非常奇怪的错误，并往往抛出臭名昭著的<strong>IllegalStateException异常</strong>。</p>
+    <entry>
+      <title><![CDATA[Android内存泄漏 ——检测、解决和避免]]></title>
+      <url>http://blog.adisonhyh.com/2016/08/20/Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F-%E2%80%94%E2%80%94%E6%A3%80%E6%B5%8B%E3%80%81%E8%A7%A3%E5%86%B3%E5%92%8C%E9%81%BF%E5%85%8D/</url>
+      <content type="html"><![CDATA[<p>作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分配更多的资源，并不可避免地崩溃。在Java中这往往导致一个<strong>OutOfMemoryException异常</strong>被抛出。在某些罕见的情况下，泄露的类甚至可以逗留很长时间来接收已注册的回调，这会导致一些非常奇怪的错误，并往往抛出臭名昭著的<strong>IllegalStateException异常</strong>。</p>
 <p>为了帮助他人在代码分析上减少花费时间，我将介绍内存泄漏的几个例子，阐述在Android Studio中如何检查它们，当然最重要的是如何将其解决。</p>
 <a id="more"></a>
 <h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><p>在这篇文章中的代码示例的目的是为了促进大家对内存管理有更深的了解，特别是在java。其通用的体系结构，线程管理和代码示例的 HTTP 请求处理在真实的生产环境并不是理想的，这些示例仅仅为了说明一个问题：在Android中，内存泄漏是一件要考虑的事情。</p>
@@ -465,29 +417,12 @@
 <li><strong>不要一味依赖垃圾回收器。</strong>使用具有垃圾回收功能的语言编码很容易有这样的想法：即没必要考虑内存管理。我们的示例清楚地表明，并非如此。因此，请确保你分配的资源都被预期回收。</li>
 </ul>
 <h4 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a><a href="https://medium.com/freenet-engineering/memory-leaks-in-android-identify-treat-and-avoid-d0b1233acc8#.9r06xyg05" target="_blank" rel="external">原文链接</a></h4>]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;p&gt;作为开发人员，在我们的日常开发中，为了构建更好的应用程序，我们需要考虑很多事情以保证应用运行在正轨上，其中之一是要确保我们的应用程序不会崩溃。应用崩溃的一个常见原因是内存泄漏。这方面的问题可以以各种形式表现出来。在大多数情况下，我们看到内存使用率稳步上升，直到应用程序不能分配更多的资源，并不可避免地崩溃。在Java中这往往导致一个&lt;strong&gt;OutOfMemoryException异常&lt;/strong&gt;被抛出。在某些罕见的情况下，泄露的类甚至可以逗留很长时间来接收已注册的回调，这会导致一些非常奇怪的错误，并往往抛出臭名昭著的&lt;strong&gt;IllegalStateException异常&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;为了帮助他人在代码分析上减少花费时间，我将介绍内存泄漏的几个例子，阐述在Android Studio中如何检查它们，当然最重要的是如何将其解决。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://blog.adisonhyh.com/categories/Android/"/>
-    
-    
-      <category term="性能优化" scheme="http://blog.adisonhyh.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZeusPlugin:掌阅Android App插件补丁实践</title>
-    <link href="http://blog.adisonhyh.com/2016/08/20/ZeusPlugin-%E6%8E%8C%E9%98%85Android-App%E6%8F%92%E4%BB%B6%E8%A1%A5%E4%B8%81%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://blog.adisonhyh.com/2016/08/20/ZeusPlugin-掌阅Android-App插件补丁实践/</id>
-    <published>2016-08-19T18:46:27.000Z</published>
-    <updated>2016-08-20T15:05:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h3><ul>
+    <entry>
+      <title><![CDATA[ZeusPlugin:掌阅Android App插件补丁实践]]></title>
+      <url>http://blog.adisonhyh.com/2016/08/20/ZeusPlugin-%E6%8E%8C%E9%98%85Android-App%E6%8F%92%E4%BB%B6%E8%A1%A5%E4%B8%81%E5%AE%9E%E8%B7%B5/</url>
+      <content type="html"><![CDATA[<h3 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h3><ul>
 <li><p>65K方法数超限</p>
 <p>随着应用不断迭代，业务线的扩展,应用越来越大，那么很不幸，总有一天，当你编译的时候，会遇到一个类似下面的错误：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Conversion to Dalvik format failed: Unable to execute dex: method ID not in [<span class="number">0</span>, <span class="number">0xffff</span>]: <span class="number">65536</span></div></pre></td></tr></table></figure>
@@ -595,22 +530,8 @@
 </ul>
 <h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><p><a href="https://github.com/iReaderAndroid/ZeusPlugin" target="_blank" rel="external">https://github.com/iReaderAndroid/ZeusPlugin</a></p>
 ]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;h3 id=&quot;遇到问题&quot;&gt;&lt;a href=&quot;#遇到问题&quot; class=&quot;headerlink&quot; title=&quot;遇到问题&quot;&gt;&lt;/a&gt;遇到问题&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;65K方法数超限&lt;/p&gt;
-&lt;p&gt;随着应用不断迭代，业务线的扩展,应用越来越大，那么很不幸，总有一天，当你编译的时候，会遇到一个类似下面的错误：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;Conversion to Dalvik format failed: Unable to execute dex: method ID not in [&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;0xffff&lt;/span&gt;]: &lt;span class=&quot;number&quot;&gt;65536&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;没错，这就是臭名昭著的65536方法数超限问题。具体原理可以参考&lt;a href=&quot;http://jayfeng.com/2016/03/10/%E7%94%B1Android-65K%E6%96%B9%E6%B3%95%E6%95%B0%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83/&quot;&gt;由Android 65K方法数限制引发的思考&lt;/a&gt;这篇文章。当然，google也意识到这个问题，所以发布了MultiDex支持库。喜大普奔，赶紧使用，问题解决？Too Young ! 使用过程中，你会发现MultiDex有不少坑：启动时间过长、ANR/Crash。当然也有解决方法，可以参考&lt;a href=&quot;http://tech.meituan.com/mt-android-auto-split-dex.html&quot;&gt;美团自动拆包方案&lt;/a&gt;。但我只想说真的太….麻烦了，还能不能愉快地回家玩游戏了….&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Android" scheme="http://blog.adisonhyh.com/categories/Android/"/>
-    
-    
-      <category term="Android插件补丁" scheme="http://blog.adisonhyh.com/tags/Android%E6%8F%92%E4%BB%B6%E8%A1%A5%E4%B8%81/"/>
-    
-  </entry>
   
-</feed>
+  
+</search>
