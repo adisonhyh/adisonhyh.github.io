@@ -102,7 +102,7 @@
 指定打包路径。如下：
 
 123456789task buildJar(dependsOn: [&apos;assembleDebug&apos;], type: Jar) &amp;#123;   	....          def srcClassDir = [project.buildDir">
-<meta property="og:updated_time" content="2016-08-28T04:56:28.000Z">
+<meta property="og:updated_time" content="2016-08-28T14:41:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可能是最通用全面的Android studio打包jar方法">
 <meta name="twitter:description" content="现状网上关于Android studio打包jar的教程很多，基本思路如下
@@ -381,7 +381,9 @@
 <blockquote>
 <p>看起来真不太舒服不是？(无意冒犯)</p>
 </blockquote>
-<p>3.对于一个强迫症的程序员，除了代码要整洁之外，编译脚本文件<code>build.gradle</code>不整洁也不能忍</p>
+<ol>
+<li>对于一个强迫症的程序员，除了代码要整洁之外，编译脚本文件<code>build.gradle</code>不整洁也不能忍</li>
+</ol>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></div><div class="line">apply <span class="string">plugin:</span> <span class="string">'jar-gradle-plugin'</span></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion <span class="number">24</span></div><div class="line">    buildToolsVersion <span class="string">"24.0.0"</span></div><div class="line"></div><div class="line">    defaultConfig &#123;</div><div class="line">        applicationId <span class="string">"com.adison.testjarplugin"</span></div><div class="line">        minSdkVersion <span class="number">15</span></div><div class="line">        targetSdkVersion <span class="number">24</span></div><div class="line">        versionCode <span class="number">1</span></div><div class="line">        versionName <span class="string">"1.0"</span></div><div class="line">    &#125;</div><div class="line">    buildTypes &#123;</div><div class="line">        release &#123;</div><div class="line">            minifyEnabled <span class="literal">true</span></div><div class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    compile fileTree(<span class="string">dir:</span> <span class="string">'libs'</span>, <span class="string">include:</span> [<span class="string">'*.jar'</span>])</div><div class="line">    testCompile <span class="string">'junit:junit:4.12'</span></div><div class="line">    compile <span class="string">'com.android.support:appcompat-v7:24.0.0'</span></div><div class="line">    compile <span class="string">'com.android.support:design:24.0.0'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">BuildJar&#123;</div><div class="line">    <span class="comment">//输出目录</span></div><div class="line">    outputFileDir= project.buildDir.path+<span class="string">"/jar"</span></div><div class="line">    <span class="comment">//输出原始jar包名</span></div><div class="line">    outputFileName=<span class="string">"test.jar"</span></div><div class="line">    <span class="comment">//输出混淆jar包名</span></div><div class="line">    outputProguardFileName=<span class="string">"test_proguard.jar"</span></div><div class="line">    <span class="comment">//混淆配置</span></div><div class="line">    proguardConfigFile=<span class="string">"proguard-rules.pro"</span></div><div class="line">    <span class="comment">//是否需要默认的混淆配置proguard-android.txt</span></div><div class="line">    needDefaultProguard=<span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>这样感觉是不是好些了哈</p>
@@ -413,13 +415,22 @@
 </li>
 <li><p>应用插件</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'jar-gradle-plugin'</span></div><div class="line">BuildJar&#123;</div><div class="line">    <span class="comment">//输出目录</span></div><div class="line">    outputFileDir= project.buildDir.path+<span class="string">"/jar"</span></div><div class="line">    <span class="comment">//输出原始jar包名</span></div><div class="line">    outputFileName=<span class="string">"test.jar"</span></div><div class="line">    <span class="comment">//输出混淆jar包名</span></div><div class="line">    outputProguardFileName=<span class="string">"test_proguard.jar"</span></div><div class="line">    <span class="comment">//混淆配置</span></div><div class="line">    proguardConfigFile=<span class="string">"proguard-rules.pro"</span></div><div class="line">    <span class="comment">//是否需要默认的混淆配置proguard-android.txt</span></div><div class="line">    needDefaultProguard=<span class="literal">true</span></div><div class="line">    applyMappingFile=<span class="string">"originMapping/mapping.txt"</span></div><div class="line">    <span class="comment">//需要输出jar的包名列表,当此参数为空时，则默认全项目输出,支持多包,如 includePackage=['com/adison/testjarplugin/include','com/adison/testjarplugin/include1'...]</span></div><div class="line">    includePackage=[<span class="string">'com/adison/testjarplugin/include'</span>]</div><div class="line">    <span class="comment">//不需要输出jar的jar包列表,如['baidu.jar','baidu1.jar'...]</span></div><div class="line">    excludeJar=[]</div><div class="line">    <span class="comment">//不需要输出jar的类名列表,如['baidu.calss','baidu1.class'...]</span></div><div class="line">    excludeClass=[<span class="string">'com/adison/testjarplugin/TestExcude.class'</span>]</div><div class="line">    <span class="comment">//不需要输出jar的包名列表,如 excludePackage=['com/adison/testjarplugin/exclude','com/adison/testjarplugin/exclude1'...]</span></div><div class="line">    excludePackage=[<span class="string">'com/adison/testjarplugin/exclude'</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>​</p>
-<blockquote>
-<p>使用可参见<a href="https://github.com/adisonhyh/TestJarPlugin/" target="_blank" rel="external">使用demo</a></p>
-</blockquote>
-<h2 id="插件源码"><a href="#插件源码" class="headerlink" title="插件源码"></a>插件源码</h2><p><a href="https://github.com/adisonhyh/buildJar" target="_blank" rel="external">https://github.com/adisonhyh/buildJar</a></p>
+</li>
+<li><p>使用</p>
 </li>
 </ol>
+<ul>
+<li><p>打包普通jar</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./gradlew buildJar</div></pre></td></tr></table></figure>
+</li>
+<li><p>打包混淆jar</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./gradlew buildProguardJar</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>使用可参见<a href="https://github.com/adisonhyh/TestJarPlugin" target="_blank" rel="external">使用demo</a></p>
+</blockquote>
+<h2 id="插件源码"><a href="#插件源码" class="headerlink" title="插件源码"></a>插件源码</h2><p> <a href="https://github.com/adisonhyh/buildJar" target="_blank" rel="external">https://github.com/adisonhyh/buildJar</a></p>
 
       
     </div>
