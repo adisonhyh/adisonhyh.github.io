@@ -1,0 +1,1215 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Adison's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="git配置
+用户名，邮箱配置
+
+全局配置
+
+12git config --global user.name &quot;zhangsan&quot;git config --global user.email &quot;zhangsan@163.com&quot;
+
+单独项目配置
+
+12git config user.name &quot;zhangsan&quot;git config user.email &quot;zhangsan@163.com&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git常用命令">
+<meta property="og:url" content="http://blog.adisonhyh.com/2016/08/31/Git常用命令/index.html">
+<meta property="og:site_name" content="Adison's Notes">
+<meta property="og:description" content="git配置
+用户名，邮箱配置
+
+全局配置
+
+12git config --global user.name &quot;zhangsan&quot;git config --global user.email &quot;zhangsan@163.com&quot;
+
+单独项目配置
+
+12git config user.name &quot;zhangsan&quot;git config user.email &quot;zhangsan@163.com&quot;">
+<meta property="og:updated_time" content="2016-08-31T15:31:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git常用命令">
+<meta name="twitter:description" content="git配置
+用户名，邮箱配置
+
+全局配置
+
+12git config --global user.name &quot;zhangsan&quot;git config --global user.email &quot;zhangsan@163.com&quot;
+
+单独项目配置
+
+12git config user.name &quot;zhangsan&quot;git config user.email &quot;zhangsan@163.com&quot;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 9079057,
+      author: '作者'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.adisonhyh.com/2016/08/31/Git常用命令/"/>
+
+  <title> Git常用命令 | Adison's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41d8f0a15f7665d70837a648054f62de";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Adison's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git常用命令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-31T23:25:35+08:00" content="2016-08-31">
+              2016-08-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/31/Git常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/Git常用命令/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/31/Git常用命令/" class="leancloud_visitors" data-flag-title="Git常用命令">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h2><ul>
+<li><p>用户名，邮箱配置</p>
+<ul>
+<li>全局配置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --<span class="keyword">global</span> user.name <span class="string">"zhangsan"</span></div><div class="line">git config --<span class="keyword">global</span> user.email <span class="string">"zhangsan@163.com"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>单独项目配置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user.name <span class="string">"zhangsan"</span></div><div class="line">git config user.email <span class="string">"zhangsan@163.com"</span></div></pre></td></tr></table></figure>
+<a id="more"></a></li>
+<li><p>配置SSH KEY</p>
+<ul>
+<li>生成ssh-key</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C <span class="string">"zhangsan@163.com"</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>提示输入密码，直接回车</p>
+</blockquote>
+<ul>
+<li><p>添加ssh-key到gitlab/github</p>
+<p>将~/.ssh/id_rsa.pub内容拷贝到网站对应配置SSH KEY地方</p>
+</li>
+<li><p>配置多个ssh-key(如有必要)</p>
+<blockquote>
+<p>公司使用gitlab，开源项目放在github，需要配置不同的ssh-key对应不同的环境</p>
+</blockquote>
+<ol>
+<li><p>生成不同的ssh-key</p>
+<p>如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C "youremail@yourcompany.com” -f ~/.ssh/id-rsa</div><div class="line">ssh-keygen -t rsa -C "youremail@your.com” -f ~/.ssh/github-rsa`</div></pre></td></tr></table></figure>
+<p>将对应公钥内容拷贝到gitlab和github对应配置SSH KEY地方</p>
+</li>
+<li><p>在 ~/.ssh 目录下新建一个config文件，内容如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># gitlab</span></div><div class="line">	Host gitlab.com</div><div class="line">    HostName gitlab.com</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div><div class="line"><span class="comment"># github</span></div><div class="line">	Host github.com</div><div class="line">    HostName github.com</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_github_rsa</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="git初始化"><a href="#git初始化" class="headerlink" title="git初始化"></a>git初始化</h2><ul>
+<li><p>在当前目录新建一个Git代码库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
+</li>
+<li><p>与远程服务器关联</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin &lt;项目地址&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>克隆项目</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone &lt;项目地址&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="git分支"><a href="#git分支" class="headerlink" title="git分支"></a>git分支</h2><ul>
+<li><p>创建分支</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -b &lt;分支名&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看本地所有分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看所有分支(包括远程)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -a</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看与当前分支绑定的远端分支</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -vv</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看远端所有分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -r</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建本地分支(和远端同名)并且把本地分支和远端分支绑定，然后切换到本地分支</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git checkout -t origin/feature/optimize ：没有加-b申明本地分支名称，默认为与远端分支同名；</div><div class="line">git checkout -b &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt; ：完全的命令格式</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除远程分支</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete &lt;branchName&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="git标签"><a href="#git标签" class="headerlink" title="git标签"></a>git标签</h2><ul>
+<li><p>新建标签</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag -a  &lt;标签名字&gt;  -m <span class="string">'附注信息'</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>把本地tag推送到远程</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin &lt;tagName&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>推送所有本地tag到远程</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push --tags</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取远程tag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git fetch origin tag &lt;tagname&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看远程仓库的标签</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git ls-remote --tags</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除远程标签</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete tag &lt;tagname&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>取得 tag 对应的代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout tag_name</div></pre></td></tr></table></figure>
+<blockquote>
+<p>但是这时候 git 可能会提示你当前处于一个“detached HEAD” 状态，因为 tag 相当于是一个快照，是不能更改它的代码的，<br>如果要在 tag 代码的基础上做修改，你需要一个分支：<code>git checkout -b branch_name tag_name</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="git代码管理"><a href="#git代码管理" class="headerlink" title="git代码管理"></a>git代码管理</h2><ul>
+<li><p>增加/删除文件</p>
+<ul>
+<li><p>添加指定文件到暂存区</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add &lt;file1&gt; &lt;file2&gt; ...</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加指定目录到暂存区，包括子目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add &lt;dir&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加当前目录的所有文件到暂存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除工作区文件，并且将这次删除放入暂存区</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm &lt;file1&gt; &lt;file2&gt; ...</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>代码提交</p>
+<ul>
+<li><p><strong>提交暂存区到仓库</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &lt;message&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看提交记录</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看仓库当前的状态</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>修改提交历史</strong></p>
+<blockquote>
+<p>注意：需要修改提交历史的提交最好是还没推送到远端的提交，不然有可能会有意想不到的问题</p>
+</blockquote>
+<ul>
+<li><p>修改提交的用户名和Email</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git commit --amend --author=<span class="string">'Your Name '</span></div><div class="line">git commit --amend --email=<span class="string">'Your email '</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>只修改提交说明/添加新的更改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#只修改提交说明</span></div><div class="line">git commit —amend</div><div class="line"><span class="comment">#添加新的更改</span></div><div class="line">git add new_file</div><div class="line">git commit —amend</div></pre></td></tr></table></figure>
+<p>然后你就会进入文本编辑器，输入你想要的内容，保存并退出即可。</p>
+</li>
+<li><p>合并提交</p>
+<blockquote>
+<p> 不常用，但有些场景很有用，譬如：提交一些无意义的提交，希望可以合并成一个有意义的提交。具体可以参见<a href="https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2" target="_blank" rel="external">Pro Git重写历史</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rebase –i HEAD~<span class="number">2</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p> 修改最近二次的提交说明,运行后將第二行的 “pick” 改為 “<strong>squash</strong>“或者“s”，然后输入”:wq”退出。编辑输入新的message，然后输入”:wq”退出</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="git-高级"><a href="#git-高级" class="headerlink" title="git 高级"></a>git 高级</h2><ul>
+<li><p>储藏</p>
+<p>当你正在进行项目中某一部分的工作，里面的东西处于一个比较杂乱的状态，这时你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点。解决这个问题的办法就是<code>git stash</code>命令。</p>
+<p>“‘储藏”“可以获取你工作目录的中间状态——也就是<strong>你修改过的被追踪的文件和暂存的变更</strong>——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。</p>
+<p><strong>一句话，<code>git stash</code>用于保存和恢复工作进度</strong></p>
+<ul>
+<li><p>保存当前的工作进度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git stash save <span class="string">"message..."</span>// 这条命令实际上是第一条 `git stash` 命令的完整版</div></pre></td></tr></table></figure>
+</li>
+<li><p>显示工作进度列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git stash list//此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择</div></pre></td></tr></table></figure>
+<p>这时应该能得到类似以下列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">stash@&#123;<span class="number">0</span>&#125;: WIP on master: <span class="number">049</span>d078 added the index file</div><div class="line">stash@&#123;<span class="number">1</span>&#125;: WIP on master: c264051 Revert <span class="string">"added file_size"</span></div><div class="line">stash@&#123;<span class="number">2</span>&#125;: WIP on master: <span class="number">21</span>d80a5 added number to log</div></pre></td></tr></table></figure>
+</li>
+<li><p>恢复保存的工作进度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash pop &lt;stash name&gt; </div><div class="line">git stash apply &lt;stash name&gt; </div><div class="line">//pop和apply唯一区别是恢复完毕是否将工作进度从进度列表中删除，pop删除，apply不删除</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不使用任何参数，会恢复最新保存的工作进度。 如果提供<stash name="">参数（来自 <code>git stash list</code> 显示的列表），则从该 <stash name=""> 对应储藏中恢复。</stash></stash></p>
+</blockquote>
+</li>
+<li><p>删除所有储藏的进度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git stash clear</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>代码回滚</p>
+<ul>
+<li><p>reset</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset &lt;标记&gt; &lt;commitId&gt;</div></pre></td></tr></table></figure>
+<p>撤销某次提交，但是此次之后的修改都会被退回到暂存区(soft)或删除(hard)</p>
+<p> reset命令有三个标记：</p>
+<ul>
+<li>–mixed – 默认选项。此次之后的修改都会被退回到工作目录</li>
+<li>–soft – 此次之后的修改都会被退回到暂存目录，实际就是mixed之后，又做了一次git add</li>
+<li>–hard – 此次之后的修改被彻底删除，暂存区和工作目录都同步到你指定的提交</li>
+</ul>
+</li>
+<li><p>revert</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git revert &lt;commitId&gt;</div></pre></td></tr></table></figure>
+<p>撤销某次提交，撤销一个提交的同时会创建一个新的提交,这是一个安全的方法，因为它不会重写提交历史</p>
+</li>
+<li><p>举个栗子</p>
+<p>本地提交如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">commit da53a6fecc9c77861c33ab90593af5779cfe57a8</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">17</span>:<span class="number">27</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test3</div><div class="line"></div><div class="line">commit a5a534a8d08b0d986ec10c2c7f638282578f1dd1</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">10</span>:<span class="number">32</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test2</div><div class="line"></div><div class="line">commit bed640cdd9e8ffb637061e0e954237fa2cdee494</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">10</span>:<span class="number">12</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test1</div></pre></td></tr></table></figure>
+<p>执行<code>git reset HEAD~2</code>,再执行<code>git log</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">commit bed640cdd9e8ffb637061e0e954237fa2cdee494</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug 31 17:10:12 2016 +0800</div><div class="line"></div><div class="line">    test1</div></pre></td></tr></table></figure>
+<p>可以看到最近两次提交被删除了</p>
+<p>如果执行<code>git revert HEAD~2</code>,再执行<code>git log</code>,那应该是这样的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">commit <span class="number">8</span>f213b31d52313f446eebe26d1757ad7c3e1ae92</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">22</span>:<span class="number">43</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    Revert <span class="string">"test1"</span></div><div class="line"></div><div class="line">    This reverts commit bed640cdd9e8ffb637061e0e954237fa2cdee494.</div><div class="line"></div><div class="line">commit <span class="number">1</span>b0b8b46dc84dc06cd74ed3c542afe4a3a5c3527</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">22</span>:<span class="number">24</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test3</div><div class="line"></div><div class="line">commit dbb588ae90a6e606fc83eba9b9b069a272a7be76</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">22</span>:<span class="number">15</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test2</div><div class="line"></div><div class="line">commit bed640cdd9e8ffb637061e0e954237fa2cdee494</div><div class="line">Author: adisonhyh &lt;adison5321@gmail.com&gt;</div><div class="line">Date:   Wed Aug <span class="number">31</span> <span class="number">17</span>:<span class="number">10</span>:<span class="number">12</span> <span class="number">2016</span> +<span class="number">0800</span></div><div class="line"></div><div class="line">    test1</div></pre></td></tr></table></figure>
+<p>可以看到revert在撤销一个提交的同时会创建一个新的提交，并且不会重写提交历史</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Adison wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/27/可能是最通用全面的Android studio打包jar方法/" rel="next" title="可能是最通用全面的Android studio打包jar方法">
+                <i class="fa fa-chevron-left"></i> 可能是最通用全面的Android studio打包jar方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/31/Git常用命令/"
+     data-title="Git常用命令"
+     data-content=""
+     data-url="http://blog.adisonhyh.com/2016/08/31/Git常用命令/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/31/Git常用命令/"
+           data-title="Git常用命令" data-url="http://blog.adisonhyh.com/2016/08/31/Git常用命令/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Adison" />
+          <p class="site-author-name" itemprop="name">Adison</p>
+          <p class="site-description motion-element" itemprop="description">オレは海贼王になる男だ！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/adisonhyh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/adisonhyh" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/42462a43083c/" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100006076216729" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook-square"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git配置"><span class="nav-number">1.</span> <span class="nav-text">git配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git初始化"><span class="nav-number">2.</span> <span class="nav-text">git初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git分支"><span class="nav-number">3.</span> <span class="nav-text">git分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git标签"><span class="nav-number">4.</span> <span class="nav-text">git标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git代码管理"><span class="nav-number">5.</span> <span class="nav-text">git代码管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-高级"><span class="nav-number">6.</span> <span class="nav-text">git 高级</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adison</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"adison"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("h3m4vahAB8rHKLqMUgmleMMC-gzGzoHsz", "nil7qAH0cewfqPuFcU8YX7SR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
