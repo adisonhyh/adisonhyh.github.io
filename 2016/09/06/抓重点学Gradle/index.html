@@ -1,0 +1,934 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Gradle,Groovy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Adison's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
+
+Ant的缺点
+依赖管理较弱，很容易变臃肿， XML作为构建脚本
+
+Maven的缺点
+比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
+
+
+而Gradle可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抓重点学Gradle">
+<meta property="og:url" content="http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/index.html">
+<meta property="og:site_name" content="Adison's Notes">
+<meta property="og:description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
+
+Ant的缺点
+依赖管理较弱，很容易变臃肿， XML作为构建脚本
+
+Maven的缺点
+比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
+
+
+而Gradle可以">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw1024/0063dNt1jw1f7j8imyrwmj31kw0ayju4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/0063dNt1jw1f7j8ii4hmrj30ex01saa4.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/0063dNt1jw1f7j8ikvqwsj30g201zwej.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw1024/0063dNt1jw1f7j8im4wvqj30n70fh75t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw1024/0063dNt1jw1f7j8ilmjipj309q0bngm7.jpg">
+<meta property="og:updated_time" content="2016-09-07T16:41:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="抓重点学Gradle">
+<meta name="twitter:description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
+
+Ant的缺点
+依赖管理较弱，很容易变臃肿， XML作为构建脚本
+
+Maven的缺点
+比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
+
+
+而Gradle可以">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw1024/0063dNt1jw1f7j8imyrwmj31kw0ayju4.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 9079057,
+      author: '作者'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/"/>
+
+  <title> 抓重点学Gradle | Adison's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41d8f0a15f7665d70837a648054f62de";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Adison's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                抓重点学Gradle
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-06T01:29:42+08:00" content="2016-09-06">
+              2016-09-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Gradle/" itemprop="url" rel="index">
+                    <span itemprop="name">Gradle</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/06/抓重点学Gradle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/抓重点学Gradle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么使用Gradle"><a href="#为什么使用Gradle" class="headerlink" title="为什么使用Gradle"></a>为什么使用Gradle</h2><p>所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：</p>
+<ul>
+<li><p>Ant的缺点</p>
+<p>依赖管理较弱，很容易变臃肿， XML作为构建脚本</p>
+</li>
+<li><p>Maven的缺点</p>
+<p>比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。</p>
+</li>
+</ul>
+<p>而Gradle可以说是集大成者，比Ant 语法精简， 比Maven灵活，抛弃了XML的繁琐配置，极其强大的依赖管理，基于Groovy动态语言而使得自定义行为十分方便。</p>
+<a id="more"></a>
+<p>关于为什么使用Gradle这个问题，官方也作出了解释：</p>
+<p><img src="http://ww4.sinaimg.cn/mw1024/0063dNt1jw1f7j8imyrwmj31kw0ayju4.jpg" alt="why-gradle"></p>
+<p>简单翻译总结，就是使用Gradle很方便很灵活。</p>
+<p>好吧，前面的都是“废话”，作为Android开发者，你不用Gradle编译试试…</p>
+<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>要学好Gradle，最重要的是学会<strong>查文档、查文档、查文档</strong>…重要的事情说三遍！</p>
+<h3 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h3><p>由于Gradle是基于Groovy，所以要学习Gradle，必须要掌握一定的Groovy基础。</p>
+<h4 id="Groovy是什么"><a href="#Groovy是什么" class="headerlink" title="Groovy是什么"></a>Groovy是什么</h4><p>简单来说，Groovy是拓展了Java语言的一种动态语言，可以作为Java平台的脚本语言使用，拥有类似<a href="https://zh.wikipedia.org/wiki/Python" target="_blank" rel="external">Python</a>、<a href="https://zh.wikipedia.org/wiki/Ruby" target="_blank" rel="external">Ruby</a>和<a href="https://zh.wikipedia.org/wiki/Smalltalk" target="_blank" rel="external">Smalltalk</a>中的一些特性。</p>
+<h4 id="Groovy学习"><a href="#Groovy学习" class="headerlink" title="Groovy学习"></a>Groovy学习</h4><p>当然，第一步肯定是配置环境，关于Groovy的环境搭建，具体可以参见<a href="http://www.groovy-lang.org/download.html#gvm" target="_blank" rel="external">Groovy官网</a>,特别简单，不在此重复说明。然后，创建一个test.groovy文件，里边只有一行代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">println  <span class="string">"hello groovy"</span></div></pre></td></tr></table></figure>
+<p>运行一下：</p>
+<p> <img src="http://ww1.sinaimg.cn/mw690/0063dNt1jw1f7j8ii4hmrj30ex01saa4.jpg" alt="hello"></p>
+<p><strong>是不是感觉和python好类似</strong></p>
+<p>作为一门语言，Groovy是复杂的。要深入研究的话，不会比学任一语言要简单。但是作为一名普通开发者，个人觉得掌握其中一点—<strong>Closure(闭包)</strong>，足矣。</p>
+<ul>
+<li><p>Groovy基础</p>
+<p>为啥这么说，首先，Groovy是完全兼容Java语法的，在学习前期，你完全可以使用Java语法代替Groovy语法编写Groovy程序，毕竟是Groovy程序，随着后期对于Groovy越来越熟悉，自然而然就会转回更舒服的Groovy语法；其次，Groovy语法真心不难，举几个常见的特殊语法：</p>
+<ul>
+<li><p>Groovy中支持动态类型，即<strong>定义变量的时候可以不指定其类型，同一个变量可以反复赋值，而且可以是不同类型的变量</strong>。这是动态语言和静态语言比较重要的区别</p>
+<p>譬如，我们把上面的test.groovy修改为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def test=2</div><div class="line">test='tt'</div><div class="line">println  "$&#123;test&#125;"</div></pre></td></tr></table></figure>
+<p>运行一下：<br>  <img src="http://ww2.sinaimg.cn/mw690/0063dNt1jw1f7j8ikvqwsj30g201zwej.jpg" alt="tt"></p>
+</li>
+</ul>
+<p>但是这种语法早在别的动态语言，如Python、Ruby中出现过了，估计不知道的程序员几乎没有吧。</p>
+<ul>
+<li><p>在上面例子中，最后输出的语句<code>println  &quot;${test}&quot;</code>其实包含了Groovy两个语法糖</p>
+<ul>
+<li>Groovy中函数调用的时候还可以不加括号</li>
+<li>如果字符中有$号的话，则它会把<strong>$表达式</strong>先求值</li>
+</ul>
+<p>其实上述例子完全可以写成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def test=<span class="number">2</span></div><div class="line">test=<span class="string">'tt'</span></div><div class="line"><span class="comment">//println  "$&#123;test&#125;"</span></div><div class="line">println(test)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>还有一些别的语法，如<code>可以不用分号结尾</code>、<code>函数的返回值也可以是无类型</code>等，但这些稍微查一下<a href="http://www.groovy-lang.org/api.html" target="_blank" rel="external">GroovyAPI文档</a>或google一下就懂了,没啥技术门槛。</p>
+<p>​</p>
+</li>
+<li><p><strong>Closure(闭包)</strong></p>
+<p>说了这么多，是时候到主角—<strong>Closure(闭包)</strong>出场了。<strong>Closure(闭包)</strong>是Groovy中函数式编程的最好体现。所谓<code>函数式编程</code>跟我们熟知的<code>面向过程编程</code>、<code>面向对象编程</code>一样也是一种<a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%9E%8B" target="_blank" rel="external">“编程范式”</a>，也就是如何编写程序的方法论。函数式编程最鲜明的特点是<code>函数是“第一等公民“</code>，所谓<a href="https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E9%A1%9E%E7%89%A9%E4%BB%B6" target="_blank" rel="external">“第一等公民”</a>，指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。</p>
+<p>在Groovy中，闭包表示一段可以执行的代码块，定义如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; [closureParameters -&gt; ] statements &#125;</div></pre></td></tr></table></figure>
+<p>其中，<strong>闭包必须使用花括号括起来，<code>[closureParameters -&gt; ]</code>表示闭包参数列表，可以为空，但其为空时，闭包默认会隐含一个参数<code>it</code>,<code>statements</code>是闭包需要执行的代码，最后一行代码是返回值</strong>。</p>
+<p>定义好闭包后，可以通过<code>closure(参数)</code>或者<code>closure.call(参数)</code>调用</p>
+<p>举个例子：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> code=&#123;<span class="number">123</span>&#125;</div><div class="line">println  code.call(<span class="number">1</span>)</div><div class="line">println  code()</div><div class="line">输出：</div><div class="line"><span class="number">123</span></div><div class="line"><span class="number">123</span></div><div class="line"></div><div class="line"><span class="keyword">def</span> add = &#123; <span class="keyword">int</span> x,y-&gt; x+y &#125; </div><div class="line">println add(<span class="number">3</span>,<span class="number">4</span>) </div><div class="line">输出：</div><div class="line"><span class="number">7</span></div><div class="line"></div><div class="line"><span class="keyword">def</span> isEven = &#123; it%<span class="number">2</span> == <span class="number">0</span> &#125;   </div><div class="line">println isEven(<span class="number">7</span>)</div><div class="line">输出：</div><div class="line"><span class="literal">false</span></div></pre></td></tr></table></figure>
+<p><strong>Closure使用注意点</strong></p>
+<ul>
+<li><p>省略圆括号</p>
+<p>在Groovy中我们要遍历一个List，一般做法是这样的：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>] </div><div class="line">list.each&#123;  </div><div class="line">  println it</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们查一下它的API文档，是这样的</p>
+<p> <img src="http://ww2.sinaimg.cn/mw1024/0063dNt1jw1f7j8im4wvqj30n70fh75t.jpg" alt="method"></p>
+<p><strong>What the hell!!!</strong>完全跟上面写法对应不上呀，实际上是因为，当函数的最后一个参数是闭包的话，可以省略圆括号，所以上面完整写法应该是这样的：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>] </div><div class="line">list.each(&#123;</div><div class="line">  println it</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>还是不对呀，明明是两个参数呀，怎么只传了一个。让我们查一下文档，这个方法定义在<a href="http://docs.groovy-lang.org/latest/html/api/org/codehaus/groovy/runtime/DefaultGroovyMethods.html" target="_blank" rel="external">DefaultGroovyMethods</a>中，看一下它的类说明：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This class defines new groovy methods which appear on normal JDK classes inside the Groovy environment. Static methods are used with the first parameter being the destination class, i.e. public static String reverse(String self) provides a reverse() method for String.</div></pre></td></tr></table></figure>
+<p>恍然大悟，原来这个类定义了Groovy环境下一些类支持的方法，而其中<strong>定义的静态方法第一个参数仅仅是为了标示目标类</strong>，所以是不需要传递的。</p>
+</li>
+</ul>
+<h3 id="Gradle-1"><a href="#Gradle-1" class="headerlink" title="Gradle"></a>Gradle</h3><h4 id="Gradle是什么"><a href="#Gradle是什么" class="headerlink" title="Gradle是什么"></a>Gradle是什么</h4><p>​    Gradle是基于Groovy定义了一套DSL，所谓DSL(领域专用语言)，就是专门针对某一特定问题的计算机语言。而Gradle我们可以认为是经过“定制”的Groovy，专门用于项目构建的语言。</p>
+<h4 id="Gradle学习—-Task，Project-Plugin"><a href="#Gradle学习—-Task，Project-Plugin" class="headerlink" title="Gradle学习— Task，Project,Plugin"></a>Gradle学习— <a href="https://docs.gradle.org/current/dsl/org.gradle.api.Task.html" target="_blank" rel="external">Task</a>，<a href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html" target="_blank" rel="external">Project</a>,<a href="https://docs.gradle.org/current/userguide/plugins.html" target="_blank" rel="external">Plugin</a></h4><p>虽然使用Android Studio开发的话，Gradle环境在IDE会自动下载集成，但要学好Gradle，建议还是自己部署一下环境。从<a href="http://gradle.org/" target="_blank" rel="external">Gradle官网</a>下载gradle后，配置一下环境变量。Gradle的环境就搭建起来了。</p>
+<p>和Groovy同理，要深入Gradle的话，要学的东西也不会少，但是作为普通的开发者，个人觉得把三个概念搞懂就可以了：<a href="https://docs.gradle.org/current/dsl/org.gradle.api.Task.html" target="_blank" rel="external">Task</a>，<a href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html" target="_blank" rel="external">Project</a>,<a href="https://docs.gradle.org/current/userguide/plugins.html" target="_blank" rel="external">Plugin</a></p>
+<ul>
+<li><p><strong>Project</strong></p>
+<p>在Gradle中，每一个project，Gradle都会创建一个Project对象，并将这个对象与构建脚本相关联。也就是说，<strong>Project对象与<code>build.gradle</code>是一对一的关系</strong>，所以你在<code>build.gradle</code>写的每一个配置其实就是它对应的<a href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html" target="_blank" rel="external">Project</a>对象的一个方法或者一个变量值，譬如说我们配置项目依赖：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:1.5.0'</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>它其实对应Project对象<code>void dependencies(Closure configureClosure);</code>方法。</p>
+<p>从面向对象的角度去理解Gradle，是不是觉得容易多了。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Task</strong></p>
+<p>Task表示一些需要执行的构建任务，比如说lint检查任务。定义一个Task可以这样写：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">"hello"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看起来挺莫名其妙的吧,还是从面向对象角度去把上面代码还原一下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">task(<span class="string">"hello"</span>).leftShift(&#123;</div><div class="line">   println <span class="string">"hello"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>定义一个task相当于调用了Project对象的task方法</li>
+<li>任务名是task方法的参数名</li>
+<li><code>&lt;&lt;</code>是Groovy的<a href="http://groovy.codehaus.org/Operator+Overloading" target="_blank" rel="external">运算符重载</a>，在Groovy中，其实就是<code>leftShift</code>方法,<code>leftShift</code>方法 等价于 <code>doLast</code>，<code>doLast</code> 是gradle提供访问task任务的一个API，类似的还有 <code>doFirst</code>，当一个task被执行的时候，可以通过 <code>doFirst</code> 和 <code>doLast</code> 向task中动态添加操作。<code>doFirst</code> /<code>doLast</code> 会在task本身被执行之前/之后才会被执行</li>
+<li><code>leftShift</code>方法接收的参数是一个<code>Closure</code></li>
+</ol>
+<p>从上述分析可知，其实<strong>一个Task就是一个标准的Groovy函数调用</strong></p>
+</li>
+<li><p><strong>Plugin</strong></p>
+<p>Gradle是一个框架，作为框架，它负责定义流程和规则。而具体的编译工作则是通过插件的方式来完成的。比如<strong>编译Java有Java插件，编译Groovy有Groovy插件，编译Android APP有Android APP插件，编译Android Library有Android Library插件</strong>。简单来说，插件就是一系列任务的集合，主要作用是把一些重复利用的逻辑打包，这样就可以在不同的项目中可以重复的使用。要应用插件，可以通过引入依赖的方式添加，举个例子，要引入Android APP插件，就需要在build.gradle引用Android APP插件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()<span class="comment">//表示编译过程中依赖的仓库</span></div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">      <span class="comment">//依赖android开发的gradle插件,groupId:artifactId:version</span></div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:1.5.0'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//应用插件</span></div><div class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></div><div class="line"></div><div class="line"><span class="comment">//配置插件属性</span></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion <span class="number">23</span></div><div class="line">    buildToolsVersion <span class="string">"23.0.2"</span></div><div class="line">    defaultConfig &#123;</div><div class="line">        applicationId <span class="string">"com.test"</span></div><div class="line">        versionCode <span class="number">1</span></div><div class="line">        versionName <span class="string">"1.0.0"</span></div><div class="line">    &#125;</div><div class="line">    buildTypes &#123;</div><div class="line">         release &#123;</div><div class="line">            minifyEnabled <span class="literal">false</span></div><div class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Gradle进阶—-自定义插件"><a href="#Gradle进阶—-自定义插件" class="headerlink" title="Gradle进阶— 自定义插件"></a>Gradle进阶— 自定义插件</h4><p>​    Gradle允许开发者自定义插件来实现项目一些特殊的构建需求。譬如说：动态注入代码。我们可以直接在build.gradle定义自己的插件，但一般很少这么干，毕竟插件更多是为了项目复用的。更多情况，Gradle插件是以独立插件工程的形式开发的。下面以一个简单例子来介绍一下开发一个独立Gradle插件基本步骤：</p>
+<p>假设现在我们开发一个直接输出输入内容的插件：</p>
+<ol>
+<li><p>建立插件工程</p>
+<p>由于Gradle是基于Groovy开发的，所以我们建立的必然是Groovy工程，项目目录结构如下</p>
+<p> <img src="http://ww1.sinaimg.cn/mw1024/0063dNt1jw1f7j8ilmjipj309q0bngm7.jpg" alt="plugin"></p>
+<p>build.gradle如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'groovy'</span></div><div class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></div><div class="line">version = <span class="string">'1.0.0'</span><span class="comment">//插件version</span></div><div class="line">group = <span class="string">'com.adison.gradleplugin'</span><span class="comment">//插件groupId</span></div><div class="line">archivesBaseName = <span class="string">'TestPlugin'</span><span class="comment">//插件artifactId</span></div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    compile gradleApi()<span class="comment">//gradle sdk</span></div><div class="line">    compile localGroovy()<span class="comment">//Groovy sdk</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//发布配置</span></div><div class="line">uploadArchives &#123;</div><div class="line">    repositories.mavenDeployer &#123;</div><div class="line">      <span class="comment">//发布到本地</span></div><div class="line">        repository(<span class="string">url:</span> <span class="string">'file:repo/'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>编写插件</p>
+<ul>
+<li><p>实现Plugin接口</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.test</div><div class="line"><span class="keyword">import</span> org.gradle.api.Plugin</div><div class="line"><span class="keyword">import</span> org.gradle.api.Project</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestPlugin</span> <span class="keyword">implements</span> <span class="title">Plugin</span>&lt;<span class="title">Project</span>&gt; &#123;</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">void</span> apply(Project target) &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是插件的入口类</p>
+</li>
+<li><p>定义输入信息扩展类</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.test</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestExtension</span> &#123;</span></div><div class="line">    String message;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>定义插件id</p>
+<p>Gradle定义插件id需要建立这样一个目录结构：<strong>/resources/META-INF/gradle-plugins</strong>，然后在其底下创建一个properties文件：<code>print-message.properties</code>文件名即是插件id，也是<code>apply plugin: &#39;xxx&#39;</code>使用的名字，在文件中输入插件入口类：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">implementation-<span class="class"><span class="keyword">class</span>=<span class="title">com</span>.<span class="title">test</span>.<span class="title">TestPlugin</span></span></div></pre></td></tr></table></figure>
+</li>
+<li><p>完善插件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.test</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.gradle.api.Plugin</div><div class="line"><span class="keyword">import</span> org.gradle.api.Project</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestPlugin</span> <span class="keyword">implements</span> <span class="title">Plugin</span>&lt;<span class="title">Project</span>&gt; &#123;</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTENSION_NAME = <span class="string">"printMessage"</span>;<span class="comment">//扩展别名</span></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">void</span> apply(Project target) &#123;</div><div class="line">      <span class="comment">//创建扩展</span></div><div class="line">   TestExtension extension=  target.extensions.create(EXTENSION_NAME,TestExtension)</div><div class="line">        target.task(<span class="string">"printMessage"</span>)&lt;&lt; &#123;</div><div class="line">            println extension.message</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>发布插件</p>
+<p>命令行执行：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./gradlew clean uploadArchives</div></pre></td></tr></table></figure>
+<p>会在当前repo目录生成插件文件</p>
+</li>
+<li><p>插件使用</p>
+<ul>
+<li><p>插件文件导入项目，譬如导入项<code>根目录/gradleplugin</code></p>
+</li>
+<li><p>引入本地仓库</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">        mavenCentral()</div><div class="line">        <span class="comment">//本地仓库</span></div><div class="line">        maven &#123;</div><div class="line">            url <span class="string">'gradleplugin'</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.android.tools.build:gradle:1.5.0'</span></div><div class="line">   		<span class="comment">//自定义插件</span></div><div class="line">        classpath <span class="string">'com.adison.gradleplugin:TestPlugin:1.0.0'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>应用插件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'print-message'</span></div><div class="line">printMessage&#123;</div><div class="line">    message=<span class="string">"test"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">命令行输入：</div><div class="line">./gradlew printMessage</div><div class="line">输出：</div><div class="line">test</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>举这个列子只是为了描述了一下自定义Gradle插件的流程，结合Groovy和Gradle内建的Task，可以实现更复杂实用的插件。</p>
+</li>
+</ol>
+<h2 id="Android-Gradle使用"><a href="#Android-Gradle使用" class="headerlink" title="Android Gradle使用"></a>Android Gradle使用</h2><p>从上述可以得知，Android其实就是写了两个插件：<code>com.android.application</code>和<code>com.android.library</code>,应用这两个插件就可以实现Android APP和Android Library的构建了，所以也没啥好说的，不知道怎么配置？查文档：<a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="external">Gradle Plugin User Guide</a></p>
+<p>这里简单分享几个有用的经验：</p>
+<ul>
+<li><p>自定义模块结构</p>
+<p>项目还是是Eclipse结构，想保留原有目录结构的同时导入到AS开发，可以自己手动生成build.gradle,配置项目目录结构：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line"> 	....</div><div class="line">    sourceSets &#123;</div><div class="line">        main &#123;</div><div class="line">            manifest.srcFile <span class="string">'AndroidManifest.xml'</span></div><div class="line">            java.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            resources.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            aidl.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            renderscript.srcDirs = [<span class="string">'src'</span>]</div><div class="line">            res.srcDirs = [<span class="string">'res'</span>]</div><div class="line">            assets.srcDirs = [<span class="string">'assets'</span>]</div><div class="line">            jniLibs.srcDirs = [<span class="string">'libs'</span>]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>由于项目协作, 以及跨平台编译, 在任何时候, 你都应该使用 Gradle Wrapper 而非本机安装Gradle</p>
+<ul>
+<li>Gradle Wrapper是Gradle的封装。即便你的机器上没有安装Gradle，使用Gradle Wrapper也可以执行Gradle的构建工作。</li>
+<li>Gradle Wrapper在项目新创建是会自动生成，使用时会自动下载对应版本的Gradle。</li>
+<li>版本一致可以避免很多因为协作或跨平台的问题。</li>
+</ul>
+<p>Gradle Wrapper使用很简单：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用gradle：</div><div class="line">gradle tasks</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用gradle wrapper</div><div class="line">./gradlew tasks</div></pre></td></tr></table></figure>
+<ul>
+<li><p>Build Variants(构建变种版本)</p>
+<p><strong>Build Type + Product Flavor = Build Variant</strong>。</p>
+<p>Android通过Build Variants可以很方便构建不同的版本，满足各种版本需求。</p>
+<ul>
+<li>Build Type: 构建类型，如debug，release，一般用于构建不同类型提供团队内部使用</li>
+<li>Product Flavor : 定制类型，一般用于区分渠道打包</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    buildTypes &#123;</div><div class="line">        debug&#123;</div><div class="line">		  ...</div><div class="line">        &#125;</div><div class="line">        release &#123;</div><div class="line">           ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    productFlavors &#123;</div><div class="line">        flavor1 &#123;</div><div class="line">          ...</div><div class="line">        &#125;</div><div class="line">        flavor2 &#123;</div><div class="line">         ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如上面配置，则会生成4个<em>Build Variant</em></p>
+<ul>
+<li>Flavor1 - debug</li>
+<li>Flavor1 - release</li>
+<li>Flavor2 - debug</li>
+<li>Flavor2 - release</li>
+</ul>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>至此，相信大家对gradle已经有一定认识。我在上述并没有对一些细节展开论述，而仅仅对我个人认为比较重要的点进行了阐述，是因为我觉得对于Gradle的学习，掌握理解其重要的概念远比记住其API重要。万变不离其宗，掌握了“点”，“面”只是时间的问题。最后，再重申一句，<strong>学会查文档真很重要</strong>。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.infoq.com/cn/articles/android-in-depth-gradle" target="_blank" rel="external">http://www.infoq.com/cn/articles/android-in-depth-gradle</a></p>
+<p><a href="http://benweizhu.github.io/blog/2015/03/31/deep-into-gradle-in-action-6/" target="_blank" rel="external">http://benweizhu.github.io/blog/2015/03/31/deep-into-gradle-in-action-6/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Adison wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Gradle/" rel="tag">#Gradle</a>
+          
+            <a href="/tags/Groovy/" rel="tag">#Groovy</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/31/Git常用命令/" rel="next" title="Git常用命令">
+                <i class="fa fa-chevron-left"></i> Git常用命令
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/06/抓重点学Gradle/"
+     data-title="抓重点学Gradle"
+     data-content=""
+     data-url="http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/06/抓重点学Gradle/"
+           data-title="抓重点学Gradle" data-url="http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Adison" />
+          <p class="site-author-name" itemprop="name">Adison</p>
+          <p class="site-description motion-element" itemprop="description">オレは海贼王になる男だ！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/adisonhyh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/adisonhyh" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/42462a43083c/" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100006076216729" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook-square"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Gradle"><span class="nav-number">1.</span> <span class="nav-text">为什么使用Gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle"><span class="nav-number">2.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Groovy"><span class="nav-number">2.1.</span> <span class="nav-text">Groovy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy是什么"><span class="nav-number">2.1.1.</span> <span class="nav-text">Groovy是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy学习"><span class="nav-number">2.1.2.</span> <span class="nav-text">Groovy学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-1"><span class="nav-number">2.2.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle是什么"><span class="nav-number">2.2.1.</span> <span class="nav-text">Gradle是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle学习—-Task，Project-Plugin"><span class="nav-number">2.2.2.</span> <span class="nav-text">Gradle学习— Task，Project,Plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle进阶—-自定义插件"><span class="nav-number">2.2.3.</span> <span class="nav-text">Gradle进阶— 自定义插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Gradle使用"><span class="nav-number">3.</span> <span class="nav-text">Android Gradle使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adison</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"adison"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
