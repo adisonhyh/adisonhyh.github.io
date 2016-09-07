@@ -86,48 +86,24 @@
 
 
 
-<meta name="description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
-
-Ant的缺点
-依赖管理较弱，很容易变臃肿， XML作为构建脚本
-
-Maven的缺点
-比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
-
-
-而Gradle可以">
+<meta name="description" content="前言网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。
+为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="抓重点学Gradle">
 <meta property="og:url" content="http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/index.html">
 <meta property="og:site_name" content="Adison's Notes">
-<meta property="og:description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
-
-Ant的缺点
-依赖管理较弱，很容易变臃肿， XML作为构建脚本
-
-Maven的缺点
-比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
-
-
-而Gradle可以">
+<meta property="og:description" content="前言网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。
+为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构">
 <meta property="og:image" content="http://ww4.sinaimg.cn/mw1024/0063dNt1jw1f7j8imyrwmj31kw0ayju4.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/mw690/0063dNt1jw1f7j8ii4hmrj30ex01saa4.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/0063dNt1jw1f7j8ikvqwsj30g201zwej.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw1024/0063dNt1jw1f7j8im4wvqj30n70fh75t.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/mw1024/0063dNt1jw1f7j8ilmjipj309q0bngm7.jpg">
-<meta property="og:updated_time" content="2016-09-07T16:41:40.000Z">
+<meta property="og:updated_time" content="2016-09-07T16:58:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="抓重点学Gradle">
-<meta name="twitter:description" content="为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：
-
-Ant的缺点
-依赖管理较弱，很容易变臃肿， XML作为构建脚本
-
-Maven的缺点
-比较精简，但限制性太多，编写插件扩展麻烦，XML作为构建脚本。
-
-
-而Gradle可以">
+<meta name="twitter:description" content="前言网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。
+为什么使用Gradle所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构">
 <meta name="twitter:image" content="http://ww4.sinaimg.cn/mw1024/0063dNt1jw1f7j8imyrwmj31kw0ayju4.jpg">
 
 
@@ -357,7 +333,8 @@ Maven的缺点
       
 
       
-        <h2 id="为什么使用Gradle"><a href="#为什么使用Gradle" class="headerlink" title="为什么使用Gradle"></a>为什么使用Gradle</h2><p>所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。</p>
+<h2 id="为什么使用Gradle"><a href="#为什么使用Gradle" class="headerlink" title="为什么使用Gradle"></a>为什么使用Gradle</h2><p>所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：</p>
 <ul>
 <li><p>Ant的缺点</p>
 <p>依赖管理较弱，很容易变臃肿， XML作为构建脚本</p>
@@ -772,7 +749,7 @@ Maven的缺点
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Gradle"><span class="nav-number">1.</span> <span class="nav-text">为什么使用Gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle"><span class="nav-number">2.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Groovy"><span class="nav-number">2.1.</span> <span class="nav-text">Groovy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy是什么"><span class="nav-number">2.1.1.</span> <span class="nav-text">Groovy是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy学习"><span class="nav-number">2.1.2.</span> <span class="nav-text">Groovy学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-1"><span class="nav-number">2.2.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle是什么"><span class="nav-number">2.2.1.</span> <span class="nav-text">Gradle是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle学习—-Task，Project-Plugin"><span class="nav-number">2.2.2.</span> <span class="nav-text">Gradle学习— Task，Project,Plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle进阶—-自定义插件"><span class="nav-number">2.2.3.</span> <span class="nav-text">Gradle进阶— 自定义插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Gradle使用"><span class="nav-number">3.</span> <span class="nav-text">Android Gradle使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Gradle"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle"><span class="nav-number">3.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Groovy"><span class="nav-number">3.1.</span> <span class="nav-text">Groovy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy是什么"><span class="nav-number">3.1.1.</span> <span class="nav-text">Groovy是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Groovy学习"><span class="nav-number">3.1.2.</span> <span class="nav-text">Groovy学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-1"><span class="nav-number">3.2.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle是什么"><span class="nav-number">3.2.1.</span> <span class="nav-text">Gradle是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle学习—-Task，Project-Plugin"><span class="nav-number">3.2.2.</span> <span class="nav-text">Gradle学习— Task，Project,Plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle进阶—-自定义插件"><span class="nav-number">3.2.3.</span> <span class="nav-text">Gradle进阶— 自定义插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Gradle使用"><span class="nav-number">4.</span> <span class="nav-text">Android Gradle使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
           </div>
         </section>

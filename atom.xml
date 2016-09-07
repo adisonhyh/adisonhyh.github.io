@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.adisonhyh.com/"/>
-  <updated>2016-09-07T16:41:40.000Z</updated>
+  <updated>2016-09-07T16:58:46.000Z</updated>
   <id>http://blog.adisonhyh.com/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://blog.adisonhyh.com/2016/09/06/%E6%8A%93%E9%87%8D%E7%82%B9%E5%AD%A6Gradle/"/>
     <id>http://blog.adisonhyh.com/2016/09/06/抓重点学Gradle/</id>
     <published>2016-09-05T17:29:42.000Z</published>
-    <updated>2016-09-07T16:41:40.000Z</updated>
+    <updated>2016-09-07T16:58:46.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="为什么使用Gradle"><a href="#为什么使用Gradle" class="headerlink" title="为什么使用Gradle"></a>为什么使用Gradle</h2><p>所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：</p>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。</p>
+<h2 id="为什么使用Gradle"><a href="#为什么使用Gradle" class="headerlink" title="为什么使用Gradle"></a>为什么使用Gradle</h2><p>所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：</p>
 <ul>
 <li><p>Ant的缺点</p>
 <p>依赖管理较弱，很容易变臃肿， XML作为构建脚本</p>
@@ -215,7 +216,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;为什么使用Gradle&quot;&gt;&lt;a href=&quot;#为什么使用Gradle&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Gradle&quot;&gt;&lt;/a&gt;为什么使用Gradle&lt;/h2&gt;&lt;p&gt;所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：&lt;/p&gt;
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;网上关于Gradle的教程很多，但很多都是以“面”切入— 通过大量讲解其用法及其API分类来阐述。但Gradle API使用技巧众多，API更是成千上百，臣妾记不住呀。个人深信，技术之道与练功之道是一致的，”想要旷世武功，先练内功”。本文尝试以“点”切入，阐述一下学习Gradle的门路。&lt;/p&gt;
+&lt;h2 id=&quot;为什么使用Gradle&quot;&gt;&lt;a href=&quot;#为什么使用Gradle&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Gradle&quot;&gt;&lt;/a&gt;为什么使用Gradle&lt;/h2&gt;&lt;p&gt;所谓构建，简单来说就是根据不同的输入信息，执行不同的任务，得到不同的输出的过程。而构建工具就是把这些过程自动化、管理执行不同的任务来满足不同需求。常见的构建工具有Ant、maven等。但它们都有一些缺点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Ant的缺点&lt;/p&gt;
 &lt;p&gt;依赖管理较弱，很容易变臃肿， XML作为构建脚本&lt;/p&gt;
