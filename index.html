@@ -260,6 +260,152 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/12/Python学习笔记-一/" itemprop="url">
+                  Python学习笔记(一)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T01:07:08+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/Python学习笔记-一/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/Python学习笔记-一/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Python基础注意点"><a href="#Python基础注意点" class="headerlink" title="Python基础注意点"></a>Python基础注意点</h2><ol>
+<li><p>字符串是以单引号<code>&#39;</code>或双引号<code>&quot;</code>括起来的任意文本，比如<code>&#39;abc&#39;</code>，<code>&quot;xyz&quot;</code>等等。</p>
+</li>
+<li><p>如果<code>&#39;</code>本身也是一个字符，那就可以用<code>&quot;&quot;</code>括起来，比如<code>&quot;I&#39;m OK&quot;</code>包含的字符是<code>I</code>，<code>&#39;</code>，<code>m</code>，空格，<code>O</code>，<code>K</code>这6个字符</p>
+</li>
+<li><p>如果字符串内部既包含<code>&#39;</code>又包含<code>&quot;</code>怎么办？可以用转义字符<code>\</code>来标识，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;I\&apos;m \&quot;OK\&quot;!&apos;</div></pre></td></tr></table></figure>
+<p>表示的字符串内容是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">I&apos;m &quot;OK&quot;!</div></pre></td></tr></table></figure>
+</li>
+<li><p>空值是Python里一个特殊的值，用<code>None</code>表示。<code>None</code>不能理解为<code>0</code>，因为<code>0</code>是有意义的，而<code>None</code>是一个特殊的空值</p>
+</li>
+<li><p>list与tuple</p>
+<ul>
+<li>list是一种有序的集合，可以随时添加和删除其中的元素，表示如<code>classmates = [&#39;Michael&#39;, &#39;Bob&#39;, &#39;Tracy&#39;]</code></li>
+<li>tuple和list非常类似，但是tuple一旦初始化就不能修改,表示如<code>classmates = (&#39;Michael&#39;, &#39;Bob&#39;, &#39;Tracy&#39;)</code></li>
+</ul>
+<blockquote>
+<p>不可变的tuple有什么意义？因为tuple不可变，所以代码更安全。如果可能，能用tuple代替list就尽量用tuple。</p>
+</blockquote>
+<ul>
+<li><strong>只有1个元素的tuple定义时必须加一个逗号<code>,</code>，不然定义的不是tuple，是元素本身</strong></li>
+</ul>
+</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/12/Python学习笔记-一/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/06/抓重点学Gradle/" itemprop="url">
                   抓重点学Gradle
                 </a>
@@ -1163,7 +1309,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1171,7 +1317,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1180,7 +1326,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
