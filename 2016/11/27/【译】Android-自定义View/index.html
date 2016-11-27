@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="翻译," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Adison's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介每天我们都会使用很多的应用程序，尽管他们有不同的约定，但大多数应用的设计是非常相似的。这就是为什么许多客户要求使用一些其他应用程序没有的设计，使得应用程序显得独特和不同。
+如果功能布局要求非常定制化，已经不能由Android内置的View创建 —这时候就需要使用自定义View了。而这意味着在大多数情况下，我们将需要相当长的时间来完成它。但这并不意味着我们不应该这样做，因为实现它是非常令人兴奋和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】Android: 自定义View">
+<meta property="og:url" content="http://blog.adisonhyh.com/2016/11/27/【译】Android-自定义View/index.html">
+<meta property="og:site_name" content="Adison's Notes">
+<meta property="og:description" content="简介每天我们都会使用很多的应用程序，尽管他们有不同的约定，但大多数应用的设计是非常相似的。这就是为什么许多客户要求使用一些其他应用程序没有的设计，使得应用程序显得独特和不同。
+如果功能布局要求非常定制化，已经不能由Android内置的View创建 —这时候就需要使用自定义View了。而这意味着在大多数情况下，我们将需要相当长的时间来完成它。但这并不意味着我们不应该这样做，因为实现它是非常令人兴奋和">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6wt5s02sj30rs0kgdl1.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6wv170ruj30j80gzgmg.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6ww7kfjoj30jg078gmz.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6wxn1amij30m806edg6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006y8mN6jw1fa6wyjfpu2j30jg0780uv.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6wz81yhnj30jg078gmy.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006y8mN6jw1fa6wzrpnxaj30jg078mxy.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6x0i3iwug30ci08wty5.gif">
+<meta property="og:updated_time" content="2016-11-27T12:09:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】Android: 自定义View">
+<meta name="twitter:description" content="简介每天我们都会使用很多的应用程序，尽管他们有不同的约定，但大多数应用的设计是非常相似的。这就是为什么许多客户要求使用一些其他应用程序没有的设计，使得应用程序显得独特和不同。
+如果功能布局要求非常定制化，已经不能由Android内置的View创建 —这时候就需要使用自定义View了。而这意味着在大多数情况下，我们将需要相当长的时间来完成它。但这并不意味着我们不应该这样做，因为实现它是非常令人兴奋和">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6wt5s02sj30rs0kgdl1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 9079057,
+      author: '作者'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.adisonhyh.com/2016/11/27/【译】Android-自定义View/"/>
+
+  <title> 【译】Android: 自定义View | Adison's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41d8f0a15f7665d70837a648054f62de";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Adison's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【译】Android: 自定义View
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-27T20:02:30+08:00" content="2016-11-27">
+              2016-11-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/27/【译】Android-自定义View/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/27/【译】Android-自定义View/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>每天我们都会使用很多的应用程序，尽管他们有不同的约定，但大多数应用的设计是非常相似的。这就是为什么许多客户要求使用一些其他应用程序没有的设计，使得应用程序显得独特和不同。</p>
+<p>如果功能布局要求非常定制化，已经不能由Android内置的View创建 —这时候就需要使用自定义View了。而这意味着在大多数情况下，我们将需要相当长的时间来完成它。但这并不意味着我们不应该这样做，因为实现它是非常令人兴奋和有趣的。</p>
+<p>我最近面临了类似的情况：我的任务是使用<code>ViewPager</code>实现Android应用引导页。不同于iOS，Android并没有提供这样的View，所以我不得不编写一个自定义View来实现它。</p>
+<a id="more"></a>
+<p>我花了一些时间来实现它。幸运的是，时下很多开源项目都有类似可复用的View，这节省了我和其他开发者的时间。我决定基于这种View创建一个公共库。如果你有类似的功能需求并且缺乏时间实现它，可以在<a href="https://github.com/romandanylyk/PageIndicatorView" target="_blank" rel="external">github repo</a>发现它。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6wt5s02sj30rs0kgdl1.jpg" alt="Sample of using PageIndicatorView"></p>
+<h3 id="绘制！"><a href="#绘制！" class="headerlink" title="绘制！"></a>绘制！</h3><p>因为编写自定义View比起普通的View更耗时，你应该只在为了实现特定的功能但没有更简单的方法情况下使用自定义View，或者你希望通过自定义View解决以下问题：</p>
+<ol>
+<li>性能。如果你布局里面有很多View，你想通自定义View优化它，使其更轻量。</li>
+<li>视图层次结构复杂。</li>
+<li>一个完全自定义的View，需要手动绘制才能实现。</li>
+</ol>
+<p>如果你还没有尝试过编写自定义View，这篇文章将教会你绘制扁平的自定义View的一些技巧。我将会告诉你整体的视图结构，如何实现具体的功能，不要重犯常见的错误，以及实现动画效果！</p>
+<p>我们需要知道的第一件事 –View的生命周期。不知出于某种原因，谷歌并没有提供View生命周期的图表，由于开发者普遍对其有误解，导致了一些意想不到的错误和问题，所以我们要认清这过程。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6wv170ruj30j80gzgmg.jpg" alt="view lifecycle"></p>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>每个View的生命都是从构造函数开始。而且这是一个绘制初始化，进行各种计算，设定默认值或做任何我们需要的事情很好的地方。</p>
+<p>但是，为了使我们的View更易于使用和配置，Android提供了很有用的<code>AttributeSet</code>接口。它很容易实现，而且绝对值得花时间去了解和实现它，因为它会帮助你（和你的团队）通过静态参数来设置View，对于以后新特性加入或者新屏幕拓展性支持也更好。</p>
+<p>首先，创建一个新的文件<code>attrs.xml</code>。所有不同的自定义View属性都可以放在该文件中。正如你看到的这个例子，我们有一个PageIndicatorView和它的唯一属性piv_count。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6ww7kfjoj30jg078gmz.jpg" alt="Custom Attributes sample"></p>
+<p>紧接着在View的构造函数中，你需要获取这个属性并使用它，如下图所示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">PageIndicatorView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(context, attrs);</div><div class="line">    TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.PageIndicatorView);</div><div class="line">    <span class="keyword">int</span> count = typedArray.getInt(R.styleable.PageIndicatorView_piv_count,<span class="number">0</span>);</div><div class="line">    typedArray.recycle();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><ul>
+<li>在创建自定义属性使用一个简单的前缀，以避免与其它View类似的属性名称冲突。一般我们使用View名称缩写，就像例子中的piv_。</li>
+<li>如果你使用的是Android Studio，一旦你使用完属性，lint会建议你调用<code>recycle()</code>方法 。The reason is just to get rid of inefficiently bound data that’s not gonna be used again。[译者注：翻译有点拗口，其实就是回收TypedArray，以便后面重用]</li>
+</ul>
+<h4 id="onAttachedToWindow"><a href="#onAttachedToWindow" class="headerlink" title="onAttachedToWindow"></a>onAttachedToWindow</h4><p>父View调用<code>addView(View)</code>后，这个View将被依附到一个窗口。在这个阶段，我们的View会知道它被包围的其他view。如果你的View和其他View在相同的<code>layout.xml</code>,这是通过id找到他们的好地方（你可以通过属性进行设置），同时可以保存为全局（如果需要）的引用。</p>
+<h4 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure"></a>onMeasure</h4><p>这意味着我们的自定义View到了处理自己的大小的时候。这是非常重要的方法，因为在大多数情况下，你的View需要有特定的大小以适应你的布局。</p>
+<p>当你重写此方法，需要记得的是，最终要设置<code>setMeasuredDimension(int width, int height)</code> 。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6wxn1amij30m806edg6.jpg" alt="onMeasure"></p>
+<p>当处理自定义View的大小时候，使用者可能通过<code>layout.xml</code>或者动态设置了具体的大小。要正确地计算它，我们需要做几件事情。</p>
+<ol>
+<li>计算你的View内容所需的大小（宽度和高度）。</li>
+<li>获取你的View MeasureSpec大小和模式（宽度和高度）。</li>
+</ol>
+<p>​<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> widthMode = MeasureSpec.getMode(widthMeasureSpec);</div><div class="line">        <span class="keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);</div><div class="line">        <span class="keyword">int</span> heightMode = MeasureSpec.getMode(heightMeasureSpec);</div><div class="line">        <span class="keyword">int</span> heightSize = MeasureSpec.getSize(heightMeasureSpec);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>检查MeasureSpec 设置和调整View（宽度和高度）的尺寸模式。</li>
+</ol>
+<p>​<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> width;</div><div class="line"><span class="keyword">if</span> (widthMode == MeasureSpec.EXACTLY) &#123;</div><div class="line">  width = widthSize;</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (widthMode == MeasureSpec.AT_MOST) &#123;</div><div class="line">  width = Math.min(desiredWidth, widthSize);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  width = desiredWidth;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="注意：-1"><a href="#注意：-1" class="headerlink" title="注意："></a>注意：</h5><p>看看MeasureSpec的值：</p>
+<ul>
+<li>MeasureSpec.EXACTLY 意味着硬编码大小值，所以你应该设置指定的宽度或高度。</li>
+<li>MeasureSpec.AT_MOST 用于表明你的View匹配父View的大小，<br> 所以它应该和他想要的大小一样大。<br> [译者注：此时View尺寸只要不超过父View允许的最大尺寸即可]</li>
+<li>MeasureSpec.UNSPECIFIED 实际上是视图包装尺寸。因此，你可以使用上面计算所需的大小。</li>
+</ul>
+<p>在通过<code>setMeasuredDimension</code>设置最终值之前，以防万一，可以检查这些值不为负数。这可以避免在布局预览时一些问题。</p>
+<h4 id="onLayout"><a href="#onLayout" class="headerlink" title="onLayout"></a>onLayout</h4><p>此方法分配大小和位置给它的每一个子View。正因为如此，我们正在研究一个扁平的自定义视图（继承简单的View）不具有任何子View，那么就没有理由重写此方法。[译者注：实现可以参考<a href="http://lucasr.org/2014/05/12/custom-layouts-on-android/" target="_blank" rel="external">Custom Layouts on Android</a>]</p>
+<h4 id="onDraw"><a href="#onDraw" class="headerlink" title="onDraw"></a>onDraw</h4><p>这就是发生魔法的地方。在这里，使用<code>Canvas</code>和<code>Paint</code>对象你将可以画任何你需要的东西。<br>一个<code>Canvas</code>实例从onDraw参数得来，它一般用于绘制不同形状，而<code>Paint</code>对象定义形状颜色。简单地说，<code>Canvas</code>用于绘制对象，而<code>Paint</code>用于造型。它们无处不在，无论绘制的是一个直线，圆或长方形。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006y8mN6jw1fa6wyjfpu2j30jg0780uv.jpg" alt="onDraw() — methods example"></p>
+<p>使自定义View，要始终牢记onDraw会花费大量的时间。当布局有一些变化，滚动、快速滑动都会导致重新绘制。所以这就是为什么Android Studio也建议：避免在onDraw中进行对象分配的操作，对象应该只创建一次并在将来重用。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006y8mN6jw1fa6wz81yhnj30jg078gmy.jpg" alt="onDraw() — Paint object recreation"></p>
+<p><img src="http://ww4.sinaimg.cn/large/006y8mN6jw1fa6wzrpnxaj30jg078mxy.jpg" alt="onDraw() — Paint object reuse"></p>
+<h5 id="注意：-2"><a href="#注意：-2" class="headerlink" title="注意："></a>注意：</h5><ul>
+<li>在执行绘制时始终牢记重用对象，而不创建新的。不要依赖于IDE高亮一个潜在的问题，而是自己有意识地去做这件事，因为在onDraw调用一个内部会创建对象的方法时，IDE无法识别它。</li>
+<li>同时请不要硬编码View大小。其他开发者在使用时可以定义不同的大小，所以View大小应该取决于它有什么尺寸。</li>
+</ul>
+<h4 id="View-更新"><a href="#View-更新" class="headerlink" title="View 更新"></a>View 更新</h4><p>从View的生命周期图可以得知，可以重绘View自身有两种方法。<code>invalidate()</code>和<code>requestLayout()</code>方法会帮助你在运行时动态改变View状态。但为什么需要两个方法？</p>
+<ul>
+<li><code>invalidate()</code>用来简单重绘View。例如更新其文本，色彩或触摸交互性。View将只调用<code>onDraw()</code>方法再次更新其状态。</li>
+<li><code>requestLayout()</code>方法，你可以看到其将会从`onMeasure()开始更新View。这意味着你的View更新后，它改变它的大小，你需要再次测量它，并依赖于新的大小来重新绘制。</li>
+</ul>
+<h4 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h4><p>在自定义View中，动画是一帧一帧的过程。这意味着，如果你想使一个圆半径从小变大，你将需要逐步增加半径并调用<code>invalidate()</code>来重绘它。</p>
+<p>在自定义View动画中，ValueAnimator是你的好朋友。下面这个类将帮助你从任何值开始执行动画到最后，甚至支持<code>Interpolator</code>（如果需要）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">ValueAnimator animator = ValueAnimator.ofInt(<span class="number">0</span>, <span class="number">100</span>);</div><div class="line">animator.setDuration(<span class="number">1000</span>);</div><div class="line">animator.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</div><div class="line">animator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> newRadius = (<span class="keyword">int</span>) animation.getAnimatedValue();</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h5 id="注意：-3"><a href="#注意：-3" class="headerlink" title="注意："></a>注意：</h5><p>当每一次新的动画值出来时，不要忘记调用<code>invalidate()</code>。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006y8mN6jw1fa6x0i3iwug30ci08wty5.gif" alt="Sample of animation via ValueAnimator"></p>
+<p>希望这篇文章可以帮助你实现你的第一个自定义View，如果你想更多地了解它，可以看看这个<a href="https://www.youtube.com/watch?v=4NNmMO8Aykw&amp;feature=youtu.be" target="_blank" rel="external">视频</a>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Adison wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag">#翻译</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/25/译-Android-泄露范例-视图订阅/" rel="next" title="[译]Android 泄露范例: 视图订阅">
+                <i class="fa fa-chevron-left"></i> [译]Android 泄露范例: 视图订阅
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/27/【译】Android-自定义View/"
+     data-title="【译】Android: 自定义View"
+     data-content=""
+     data-url="http://blog.adisonhyh.com/2016/11/27/【译】Android-自定义View/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/27/【译】Android-自定义View/"
+           data-title="【译】Android: 自定义View" data-url="http://blog.adisonhyh.com/2016/11/27/【译】Android-自定义View/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Adison" />
+          <p class="site-author-name" itemprop="name">Adison</p>
+          <p class="site-description motion-element" itemprop="description">オレは海贼王になる男だ！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/adisonhyh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/adisonhyh" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/42462a43083c/" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/profile.php?id=100006076216729" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook-square"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制！"><span class="nav-number">2.</span> <span class="nav-text">绘制！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数"><span class="nav-number">2.1.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意："><span class="nav-number">2.1.1.</span> <span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onAttachedToWindow"><span class="nav-number">2.2.</span> <span class="nav-text">onAttachedToWindow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onMeasure"><span class="nav-number">2.3.</span> <span class="nav-text">onMeasure</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意：-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onLayout"><span class="nav-number">2.4.</span> <span class="nav-text">onLayout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onDraw"><span class="nav-number">2.5.</span> <span class="nav-text">onDraw</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意：-2"><span class="nav-number">2.5.1.</span> <span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-更新"><span class="nav-number">2.6.</span> <span class="nav-text">View 更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动画"><span class="nav-number">2.7.</span> <span class="nav-text">动画</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意：-3"><span class="nav-number">2.7.1.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adison</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"adison"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
