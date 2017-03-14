@@ -260,6 +260,165 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/15/从自定义FrameCallback理解Choreographer原理/" itemprop="url">
+                  从自定义FrameCallback理解Choreographer原理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-15T02:16:07+08:00" content="2017-03-15">
+              2017-03-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/15/从自定义FrameCallback理解Choreographer原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/15/从自定义FrameCallback理解Choreographer原理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>简单来说，Choreographer主要作用是协调动画，输入和绘制的时间，它从显示子系统接收定时脉冲（例如垂直同步），然后安排渲染下一个frame的一部分工作。</p>
+<h2 id="自定义FrameCallback"><a href="#自定义FrameCallback" class="headerlink" title="自定义FrameCallback"></a>自定义FrameCallback</h2><p>FrameCallback是和Choreographer交互，在下一个frame被渲染时触发的接口类。开发者可以设置自己的FrameCallback。我们就从自定义FrameCallback作为切入口，尝试窥探一下Choreographer的实现原理。简单实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"Choreographer_test"</span>;</div><div class="line"></div><div class="line"> <span class="meta">@Override</span></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">     <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">     setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">     <span class="keyword">final</span> ImageView imageView= (ImageView) findViewById(R.id.iv_anim);</div><div class="line">     imageView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">         <span class="meta">@Override</span></div><div class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">             <span class="keyword">final</span> <span class="keyword">long</span> starTime=System.nanoTime();</div><div class="line">             Choreographer.getInstance().postFrameCallback(<span class="keyword">new</span> Choreographer.FrameCallback() &#123;</div><div class="line">                 <span class="meta">@Override</span></div><div class="line">                 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFrame</span><span class="params">(<span class="keyword">long</span> frameTimeNanos)</span> </span>&#123;</div><div class="line">                     Log.e(TAG,<span class="string">"starTime="</span>+starTime+<span class="string">", frameTimeNanos="</span>+frameTimeNanos+<span class="string">", frameDueTime="</span>+(frameTimeNanos-starTime)/<span class="number">1000000</span>);</div><div class="line">                 &#125;</div><div class="line">             &#125;);</div><div class="line">         &#125;</div><div class="line">     &#125;);</div><div class="line"></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>在这里，我们自定义的FrameCallback只是简单把时间打印了一下。输入如下信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">E/Choreographer_test: starTime=<span class="number">232157742945242</span>, frameTimeNanos=<span class="number">232157744964255</span>, frameDueTime=<span class="number">2</span></div></pre></td></tr></table></figure>
+<p>从log可以看出，这一帧大概2ms就处理完毕。下面我们从源码角度窥探一下它具体的实现原理。</p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="1-关键成员变量"><a href="#1-关键成员变量" class="headerlink" title="1. 关键成员变量"></a>1. 关键成员变量</h3><h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">Choreographer</span><span class="params">(Looper looper)</span> </span>&#123;</div><div class="line">     mLooper = looper;</div><div class="line">  	<span class="comment">//1.创建Handler对象，用于处理消息</span></div><div class="line">     mHandler = <span class="keyword">new</span> FrameHandler(looper);</div><div class="line">  	<span class="comment">//2.创建接收VSYNC信号的对象</span></div><div class="line">     mDisplayEventReceiver = USE_VSYNC ? <span class="keyword">new</span> FrameDisplayEventReceiver(looper) : <span class="keyword">null</span>;</div><div class="line">  	<span class="comment">//3.初始化上一次frame渲染的时间点</span></div><div class="line">     mLastFrameTimeNanos = Long.MIN_VALUE;</div><div class="line">  	<span class="comment">//4.帧率，也就是渲染一帧的时间，getRefreshRate是刷新率，一般是60</span></div><div class="line">     mFrameIntervalNanos = (<span class="keyword">long</span>)(<span class="number">1000000000</span> / getRefreshRate());</div><div class="line">  	<span class="comment">//5.创建回调队列</span></div><div class="line">     mCallbackQueues = <span class="keyword">new</span> CallbackQueue[CALLBACK_LAST + <span class="number">1</span>];</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= CALLBACK_LAST; i++) &#123;</div><div class="line">         mCallbackQueues[i] = <span class="keyword">new</span> CallbackQueue();</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h4 id="FrameHandler"><a href="#FrameHandler" class="headerlink" title="FrameHandler"></a>FrameHandler</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FrameHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="title">FrameHandler</span><span class="params">(Looper looper)</span> </span>&#123;</div><div class="line">           <span class="keyword">super</span>(looper);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="meta">@Override</span></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">           <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">               <span class="keyword">case</span> MSG_DO_FRAME:</div><div class="line">               	<span class="comment">//渲染下一个frame</span></div><div class="line">                   doFrame(System.nanoTime(), <span class="number">0</span>);</div><div class="line">                   <span class="keyword">break</span>;</div><div class="line">               <span class="keyword">case</span> MSG_DO_SCHEDULE_VSYNC:</div><div class="line">               	<span class="comment">//请求VSNYC信号</span></div><div class="line">                   doScheduleVsync();</div><div class="line">                   <span class="keyword">break</span>;</div><div class="line">               <span class="keyword">case</span> MSG_DO_SCHEDULE_CALLBACK:</div><div class="line">               	<span class="comment">//执行Callback</span></div><div class="line">                   doScheduleCallback(msg.arg1);</div><div class="line">                   <span class="keyword">break</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="FrameDisplayEventReceiver"><a href="#FrameDisplayEventReceiver" class="headerlink" title="FrameDisplayEventReceiver"></a>FrameDisplayEventReceiver</h4><p>FrameDisplayEventReceiver是DisplayEventReceiver的子类，DisplayEventReceiver是接收VSYNC信息的java层实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">DisplayEventReceiver</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVsync</span><span class="params">(<span class="keyword">long</span> timestampNanos, <span class="keyword">int</span> builtInDisplayId, <span class="keyword">int</span> frame)</span> </span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scheduleVsync</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mReceiverPtr == <span class="number">0</span>) &#123;</div><div class="line">            Log.w(TAG, <span class="string">"Attempted to schedule a vertical sync pulse but the display event "</span></div><div class="line">                    + <span class="string">"receiver has already been disposed."</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            nativeScheduleVsync(mReceiverPtr);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dispatchVsync</span><span class="params">(<span class="keyword">long</span> timestampNanos, <span class="keyword">int</span> builtInDisplayId, <span class="keyword">int</span> frame)</span> </span>&#123;</div><div class="line">        onVsync(timestampNanos, builtInDisplayId, frame);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>VSYNC信息一般由硬件中断产生，SurfaceFlinger处理。具体实现和监听机制可以参考<a href="http://gityuan.com/2017/02/11/surface_flinger/" target="_blank" rel="external">链接</a>，<code>scheduleVsync</code>方法用于请求VSNYC信号，  Native方法接收到VSYNC信息处理后会调用java层<code>dispatchVsync</code>方法，最终调用到FrameDisplayEventReceiver的<code>onVsync</code>方法，具体实现我们一会再说。</p>
+<h4 id="CallbackQueue"><a href="#CallbackQueue" class="headerlink" title="CallbackQueue"></a>CallbackQueue</h4><p>CallbackQueue是个单链表实现，每种类型的callback(CallbackRecord)按照设置的执行时间(dueTime)顺序排序分别保存在其各自CallbackQueue。在Choreographer中有四种类型callback：Input、Animation、Draw，还有一种是用来解决动画启动问题的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CallbackQueue</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> CallbackRecord mHead;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasDueCallbacksLocked</span><span class="params">(<span class="keyword">long</span> now)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> mHead != <span class="keyword">null</span> &amp;&amp; mHead.dueTime &lt;= now;</div><div class="line">        &#125;</div><div class="line">		<span class="comment">//根据当前时间得到callback</span></div><div class="line">        <span class="function"><span class="keyword">public</span> CallbackRecord <span class="title">extractDueCallbacksLocked</span><span class="params">(<span class="keyword">long</span> now)</span> </span>&#123;</div><div class="line">       		  ....</div><div class="line">              ....</div><div class="line">        &#125;</div><div class="line">		<span class="comment">//根据时间添加callback</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCallbackLocked</span><span class="params">(<span class="keyword">long</span> dueTime, Object action, Object token)</span> </span>&#123;</div><div class="line">           	....</div><div class="line">            ....</div><div class="line">        &#125;</div><div class="line">		<span class="comment">//移除callback</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeCallbacksLocked</span><span class="params">(Object action, Object token)</span> </span>&#123;</div><div class="line">          		 ....</div><div class="line">            	 ....</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="2-流程分析"><a href="#2-流程分析" class="headerlink" title="2. 流程分析"></a>2. 流程分析</h3><p>大致分析完Choreographer关键的几个成员变量后，我们再回到<code>postFrameCallback</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postFrameCallbackDelayed</span><span class="params">(FrameCallback callback, <span class="keyword">long</span> delayMillis)</span> </span>&#123;</div><div class="line">      <span class="keyword">if</span> (callback == <span class="keyword">null</span>) &#123;</div><div class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"callback must not be null"</span>);</div><div class="line">      &#125;</div><div class="line"><span class="comment">//默认为CALLBACK_ANIMATION类型</span></div><div class="line">      postCallbackDelayedInternal(CALLBACK_ANIMATION,</div><div class="line">              callback, FRAME_CALLBACK_TOKEN, delayMillis);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="postCallbackDelayedInternal"><a href="#postCallbackDelayedInternal" class="headerlink" title="postCallbackDelayedInternal"></a>postCallbackDelayedInternal</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">postCallbackDelayedInternal</span><span class="params">(<span class="keyword">int</span> callbackType,</span></span></div><div class="line">            Object action, Object token, <span class="keyword">long</span> delayMillis) &#123;</div><div class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">long</span> now = SystemClock.uptimeMillis();</div><div class="line">            <span class="keyword">final</span> <span class="keyword">long</span> dueTime = now + delayMillis;</div><div class="line">          	<span class="comment">//添加callback到回调队列</span></div><div class="line">            mCallbackQueues[callbackType].addCallbackLocked(dueTime, action, token);</div><div class="line">            <span class="keyword">if</span> (dueTime &lt;= now) &#123;</div><div class="line">                scheduleFrameLocked(now);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">//设定的执行时间在当前时间之后,发送MSG_DO_SCHEDULE_CALLBACK，由FrameHanlder安排执行scheduleFrameLocked</span></div><div class="line">                Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_CALLBACK, action);</div><div class="line">                msg.arg1 = callbackType;</div><div class="line">                msg.setAsynchronous(<span class="keyword">true</span>);</div><div class="line">                mHandler.sendMessageAtTime(msg, dueTime);`</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="scheduleFrameLocked"><a href="#scheduleFrameLocked" class="headerlink" title="scheduleFrameLocked"></a>scheduleFrameLocked</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">scheduleFrameLocked</span><span class="params">(<span class="keyword">long</span> now)</span> </span>&#123;</div><div class="line">  		 	....</div><div class="line">             <span class="keyword">if</span> (isRunningOnLooperThreadLocked()) &#123;</div><div class="line">               <span class="comment">//若当前线程是UI线程，执行scheduleVsyncLocked请求VSYNC信号</span></div><div class="line">               scheduleVsyncLocked();</div><div class="line">             &#125; <span class="keyword">else</span> &#123;</div><div class="line">               <span class="comment">//非UI线程，发送MSG_DO_SCHEDULE_VSYNC消息到主线程</span></div><div class="line">               Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_VSYNC);</div><div class="line">               msg.setAsynchronous(<span class="keyword">true</span>);</div><div class="line">               mHandler.sendMessageAtFrontOfQueue(msg);</div><div class="line">             &#125;</div><div class="line">       	 ....</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>scheduleVsyncLocked最终调用FrameDisplayEventReceiver#scheduleVsync，收到Vsync信息后，调用FrameDisplayEventReceiver#onVsync</p>
+</blockquote>
+<h4 id="FrameDisplayEventReceiver-onVsync"><a href="#FrameDisplayEventReceiver-onVsync" class="headerlink" title="FrameDisplayEventReceiver#onVsync"></a>FrameDisplayEventReceiver#onVsync</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FrameDisplayEventReceiver</span> <span class="keyword">extends</span> <span class="title">DisplayEventReceiver</span></span></div><div class="line">         <span class="keyword">implements</span> <span class="title">Runnable</span> &#123;</div><div class="line">     <span class="keyword">private</span> <span class="keyword">boolean</span> mHavePendingVsync;</div><div class="line">     <span class="keyword">private</span> <span class="keyword">long</span> mTimestampNanos;</div><div class="line">     <span class="keyword">private</span> <span class="keyword">int</span> mFrame;</div><div class="line"></div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="title">FrameDisplayEventReceiver</span><span class="params">(Looper looper)</span> </span>&#123;</div><div class="line">         <span class="keyword">super</span>(looper);</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     <span class="meta">@Override</span></div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVsync</span><span class="params">(<span class="keyword">long</span> timestampNanos, <span class="keyword">int</span> builtInDisplayId, <span class="keyword">int</span> frame)</span> </span>&#123;</div><div class="line">    		....</div><div class="line">    		....</div><div class="line">         mTimestampNanos = timestampNanos;</div><div class="line">         mFrame = frame;</div><div class="line">       	<span class="comment">//该消息的callback为当前对象FrameDisplayEventReceiver,收到消息调用其run方法,然后调用doFrame方法</span></div><div class="line">         Message msg = Message.obtain(mHandler, <span class="keyword">this</span>);</div><div class="line">         msg.setAsynchronous(<span class="keyword">true</span>);</div><div class="line">         mHandler.sendMessageAtTime(msg, timestampNanos / TimeUtils.NANOS_PER_MS);</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     <span class="meta">@Override</span></div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">         mHavePendingVsync = <span class="keyword">false</span>;</div><div class="line">         doFrame(mTimestampNanos, mFrame);</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h4 id="doFrame"><a href="#doFrame" class="headerlink" title="doFrame"></a>doFrame</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">doFrame</span><span class="params">(<span class="keyword">long</span> frameTimeNanos, <span class="keyword">int</span> frame)</span> </span>&#123;</div><div class="line">  		....</div><div class="line">        <span class="comment">//Vsync信号到来时间    </span></div><div class="line">        <span class="keyword">long</span> intendedFrameTimeNanos = frameTimeNanos;</div><div class="line">  		<span class="comment">//实际开始执行当前frame的时间</span></div><div class="line">        startNanos = System.nanoTime();</div><div class="line">  		<span class="comment">//时间差</span></div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> jitterNanos = startNanos - frameTimeNanos;</div><div class="line">  		<span class="comment">//时间差大于帧率，则认为是跳帧</span></div><div class="line">        <span class="keyword">if</span> (jitterNanos &gt;= mFrameIntervalNanos) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">long</span> skippedFrames = jitterNanos / mFrameIntervalNanos;</div><div class="line">            <span class="keyword">if</span> (skippedFrames &gt;= SKIPPED_FRAME_WARNING_LIMIT) &#123;</div><div class="line">                Log.i(TAG, <span class="string">"Skipped "</span> + skippedFrames + <span class="string">" frames!  "</span></div><div class="line">                        + <span class="string">"The application may be doing too much work on its main thread."</span>);</div><div class="line">            &#125;</div><div class="line">          ....</div><div class="line">          ....</div><div class="line">         <span class="comment">//记录当前frame信息   </span></div><div class="line">        mFrameInfo.setVsync(intendedFrameTimeNanos, frameTimeNanos);</div><div class="line">        mFrameScheduled = <span class="keyword">false</span>;</div><div class="line">          <span class="comment">//记录上一次frame渲染的时间点</span></div><div class="line">        mLastFrameTimeNanos = frameTimeNanos;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      	<span class="comment">//执行CallBack，优先级为：CALLBACK_INPUT&gt;CALLBACK_ANIMATION&gt;CALLBACK_TRAVERSAL&gt;CALLBACK_COMMIT</span></div><div class="line">        Trace.traceBegin(Trace.TRACE_TAG_VIEW, <span class="string">"Choreographer#doFrame"</span>);</div><div class="line">        mFrameInfo.markInputHandlingStart();</div><div class="line">        doCallbacks(Choreographer.CALLBACK_INPUT, frameTimeNanos);</div><div class="line">        mFrameInfo.markAnimationsStart();</div><div class="line">        doCallbacks(Choreographer.CALLBACK_ANIMATION, frameTimeNanos);</div><div class="line">        mFrameInfo.markPerformTraversalsStart();</div><div class="line">        doCallbacks(Choreographer.CALLBACK_TRAVERSAL, frameTimeNanos);</div><div class="line">        doCallbacks(Choreographer.CALLBACK_COMMIT, frameTimeNanos);</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        Trace.traceEnd(Trace.TRACE_TAG_VIEW);</div><div class="line">    &#125;</div><div class="line">    ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="doCallbacks"><a href="#doCallbacks" class="headerlink" title="doCallbacks"></a>doCallbacks</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">doCallbacks</span><span class="params">(<span class="keyword">int</span> callbackType, <span class="keyword">long</span> frameTimeNanos)</span> </span>&#123;</div><div class="line">    CallbackRecord callbacks;</div><div class="line">    <span class="keyword">synchronized</span> (mLock) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> now = System.nanoTime();</div><div class="line">      	<span class="comment">// 从队列查找相应类型的CallbackRecord对象</span></div><div class="line">        callbacks = mCallbackQueues[callbackType].extractDueCallbacksLocked(</div><div class="line">                now / TimeUtils.NANOS_PER_MS);</div><div class="line">        <span class="keyword">if</span> (callbacks == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        mCallbacksRunning = <span class="keyword">true</span>;</div><div class="line">      ....</div><div class="line">      ....  </div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        Trace.traceBegin(Trace.TRACE_TAG_VIEW, CALLBACK_TRACE_TITLES[callbackType]);</div><div class="line">        <span class="keyword">for</span> (CallbackRecord c = callbacks; c != <span class="keyword">null</span>; c = c.next) &#123;</div><div class="line">            ....</div><div class="line">            <span class="comment">//调用CallbackRecord的run方法</span></div><div class="line">            c.run(frameTimeNanos);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        <span class="keyword">synchronized</span> (mLock) &#123;</div><div class="line">            mCallbacksRunning = <span class="keyword">false</span>;</div><div class="line">          	<span class="comment">//回收callbacks，加入mCallbackPool对象池</span></div><div class="line">            do &#123;</div><div class="line">                <span class="keyword">final</span> CallbackRecord next = callbacks.next;</div><div class="line">                recycleCallbackLocked(callbacks);</div><div class="line">                callbacks = next;</div><div class="line">            &#125; <span class="keyword">while</span> (callbacks != <span class="keyword">null</span>);</div><div class="line">        &#125;</div><div class="line">        Trace.traceEnd(Trace.TRACE_TAG_VIEW);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="CallbackRecord-run"><a href="#CallbackRecord-run" class="headerlink" title="CallbackRecord#run"></a>CallbackRecord#run</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">long</span> frameTimeNanos)</span> </span>&#123;</div><div class="line">   <span class="keyword">if</span> (token == FRAME_CALLBACK_TOKEN) &#123;</div><div class="line">      <span class="comment">//调用自定义FrameCallback的doFrame方法</span></div><div class="line">     ((FrameCallback)action).doFrame(frameTimeNanos);</div><div class="line">   &#125; <span class="keyword">else</span> &#123;</div><div class="line">     ((Runnable)action).run();</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此，关于Choreographer的整个调用流程及其原理已经分析完成。至于系统某些调用，如View的<code>invalidate</code>，触发<code>ViewRootImpl#scheduleTraversals</code>，最终调用<code>Choreographer#postCallback(        Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</code>，只是明确了Callbac的类型以及回调处理Runnable而已，基本流程和自定义FrameCallback一样。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>尽量避免在执行动画或渲染操作<strong>之后</strong>在主线程执行操作，在<strong>之前或之后</strong>都应该尽量避免发送消息到主线程looper</p>
+</li>
+<li><p>既然自定义FrameCallback可以在下一个frame被渲染的时候会被回调，那我们是不是可以根据这个原理实现应用的帧率监听呢，答案是肯定的，下面是我的简单实现:</p>
+<p>1.自定义FrameCallback：FPSFrameCallback</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FPSFrameCallback</span> <span class="keyword">implements</span> <span class="title">Choreographer</span>.<span class="title">FrameCallback</span> </span>&#123;</div><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"FPS_TEST"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">long</span> mLastFrameTimeNanos = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">long</span> mFrameIntervalNanos;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FPSFrameCallback</span><span class="params">(<span class="keyword">long</span> lastFrameTimeNanos)</span> </span>&#123;</div><div class="line">        mLastFrameTimeNanos = lastFrameTimeNanos;</div><div class="line">        mFrameIntervalNanos = (<span class="keyword">long</span>)(<span class="number">1000000000</span> / <span class="number">60.0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFrame</span><span class="params">(<span class="keyword">long</span> frameTimeNanos)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//初始化时间</span></div><div class="line">        <span class="keyword">if</span> (mLastFrameTimeNanos == <span class="number">0</span>) &#123;</div><div class="line">            mLastFrameTimeNanos = frameTimeNanos;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> jitterNanos = frameTimeNanos - mLastFrameTimeNanos;</div><div class="line">        <span class="keyword">if</span> (jitterNanos &gt;= mFrameIntervalNanos) &#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">long</span> skippedFrames = jitterNanos / mFrameIntervalNanos;</div><div class="line">            <span class="keyword">if</span>(skippedFrames&gt;<span class="number">30</span>)&#123;</div><div class="line">                Log.i(TAG, <span class="string">"Skipped "</span> + skippedFrames + <span class="string">" frames!  "</span></div><div class="line">                        + <span class="string">"The application may be doing too much work on its main thread."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        mLastFrameTimeNanos=frameTimeNanos;</div><div class="line">        <span class="comment">//注册下一帧回调</span></div><div class="line">        Choreographer.getInstance().postFrameCallback(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.在Application中注册</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate();</div><div class="line">       Choreographer.getInstance().postFrameCallback(<span class="keyword">new</span> FPSFrameCallback(System.nanoTime()));</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3.测试</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onResume();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Thread.sleep(<span class="number">1000</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>   LOG输出如下：</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">I/Choreographer: Skipped <span class="number">64</span> frames!  The application may be doing too much work on its main thread.</div><div class="line">I/FPS_TEST: Skipped <span class="number">65</span> frames!  The application may be doing too much work on its main thread.</div></pre></td></tr></table></figure>
+</code></pre><p> 基本和系统监控数值一致</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/27/【译】Android-自定义View/" itemprop="url">
                   【译】Android: 自定义View
                 </a>
@@ -1396,135 +1555,13 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/20/ZeusPlugin-掌阅Android-App插件补丁实践/" itemprop="url">
-                  ZeusPlugin:掌阅Android App插件补丁实践
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-20T02:46:27+08:00" content="2016-08-20">
-              2016-08-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/20/ZeusPlugin-掌阅Android-App插件补丁实践/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/ZeusPlugin-掌阅Android-App插件补丁实践/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h3><ul>
-<li><p>65K方法数超限</p>
-<p>随着应用不断迭代，业务线的扩展,应用越来越大，那么很不幸，总有一天，当你编译的时候，会遇到一个类似下面的错误：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Conversion to Dalvik format failed: Unable to execute dex: method ID not in [<span class="number">0</span>, <span class="number">0xffff</span>]: <span class="number">65536</span></div></pre></td></tr></table></figure>
-<p>没错，这就是臭名昭著的65536方法数超限问题。具体原理可以参考<a href="http://jayfeng.com/2016/03/10/%E7%94%B1Android-65K%E6%96%B9%E6%B3%95%E6%95%B0%E9%99%90%E5%88%B6%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83/">由Android 65K方法数限制引发的思考</a>这篇文章。当然，google也意识到这个问题，所以发布了MultiDex支持库。喜大普奔，赶紧使用，问题解决？Too Young ! 使用过程中，你会发现MultiDex有不少坑：启动时间过长、ANR/Crash。当然也有解决方法，可以参考<a href="http://tech.meituan.com/mt-android-auto-split-dex.html">美团自动拆包方案</a>。但我只想说真的太….麻烦了，还能不能愉快地回家玩游戏了….</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/20/ZeusPlugin-掌阅Android-App插件补丁实践/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1563,7 +1600,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1580,7 +1617,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1662,7 +1699,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
