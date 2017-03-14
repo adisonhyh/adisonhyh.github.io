@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.adisonhyh.com/"/>
-  <updated>2017-03-14T18:23:51.000Z</updated>
+  <updated>2017-03-14T18:55:25.000Z</updated>
   <id>http://blog.adisonhyh.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>从自定义FrameCallback理解Choreographer原理</title>
-    <link href="http://blog.adisonhyh.com/2017/03/15/%E4%BB%8E%E8%87%AA%E5%AE%9A%E4%B9%89FrameCallback%E7%90%86%E8%A7%A3Choreographer%E5%8E%9F%E7%90%86/"/>
-    <id>http://blog.adisonhyh.com/2017/03/15/从自定义FrameCallback理解Choreographer原理/</id>
+    <title>从FrameCallback理解Choreographer原理及简单帧率监控应用</title>
+    <link href="http://blog.adisonhyh.com/2017/03/15/%E4%BB%8EFrameCallback%E7%90%86%E8%A7%A3Choreographer%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%B8%A7%E7%8E%87%E7%9B%91%E6%8E%A7%E5%BA%94%E7%94%A8/"/>
+    <id>http://blog.adisonhyh.com/2017/03/15/从FrameCallback理解Choreographer原理及简单帧率监控应用/</id>
     <published>2017-03-14T18:16:07.000Z</published>
-    <updated>2017-03-14T18:23:51.000Z</updated>
+    <updated>2017-03-14T18:55:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>简单来说，Choreographer主要作用是协调动画，输入和绘制的时间，它从显示子系统接收定时脉冲（例如垂直同步），然后安排渲染下一个frame的一部分工作。</p>
 <h2 id="自定义FrameCallback"><a href="#自定义FrameCallback" class="headerlink" title="自定义FrameCallback"></a>自定义FrameCallback</h2><p>FrameCallback是和Choreographer交互，在下一个frame被渲染时触发的接口类。开发者可以设置自己的FrameCallback。我们就从自定义FrameCallback作为切入口，尝试窥探一下Choreographer的实现原理。简单实现如下：</p>
