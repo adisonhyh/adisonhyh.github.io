@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.adisonhyh.com/"/>
-  <updated>2017-03-14T18:55:25.000Z</updated>
+  <updated>2017-03-19T17:09:46.000Z</updated>
   <id>http://blog.adisonhyh.com/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>立即停止Android Studio 编译</title>
+    <link href="http://blog.adisonhyh.com/2017/03/20/%E7%AB%8B%E5%8D%B3%E5%81%9C%E6%AD%A2Android-Studio-%E7%BC%96%E8%AF%91/"/>
+    <id>http://blog.adisonhyh.com/2017/03/20/立即停止Android-Studio-编译/</id>
+    <published>2017-03-19T17:04:04.000Z</published>
+    <updated>2017-03-19T17:09:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p><a href="https://android.jlelse.eu/stop-android-studio-compilation-immediately-90b9afb76f8c#.7vhnszhmc" target="_blank" rel="external">原文链接</a></p>
+</blockquote>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fdsnajekj8j30fr09gdo2.jpg" alt="stop"></p>
+<p>你不小心在Android Studio中启动了编译，当你想要停止它，但却不能？</p>
+<p>下面的STOP和CANCEL操作根本不会有任何帮助。</p>
+<a id="more"></a>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fdsnbbhzoxj30fr03owem.jpg" alt="STOP"></p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fdsnbzbi7vj30fr029dfw.jpg" alt="CANCEL"></p>
+<p>最棘手的是，你点击<code>Cancel</code>后，它将会像以下显示，但编译仍将继续，直到安装完成。</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fdsncndja0j30cm017q35.jpg" alt="stopping"></p>
+<p>这个问题似乎从Android Studio版本1.0就存在，但直到今天依然存在。IntelliJ执行停止操作真的这么难？</p>
+<h2 id="一个命令就可以停止它！"><a href="#一个命令就可以停止它！" class="headerlink" title="一个命令就可以停止它！"></a>一个命令就可以停止它！</h2><p>是的，只需进入项目文件夹，然后输入以下命令即可。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./gradlew --stop</div></pre></td></tr></table></figure>
+<p>就是这么简单，这个命令会杀死编译的守护进程，编译会立即停止:)</p>
+<blockquote>
+<p>译者注：又get一个新技巧，以前遇到这种情况，我都是重启Android Studio (╯□╰)o</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://android.jlelse.eu/stop-android-studio-compilation-immediately-90b9afb76f8c#.7vhnszhmc&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://ww2.sinaimg.cn/large/006tNbRwgy1fdsnajekj8j30fr09gdo2.jpg&quot; alt=&quot;stop&quot;&gt;&lt;/p&gt;
+&lt;p&gt;你不小心在Android Studio中启动了编译，当你想要停止它，但却不能？&lt;/p&gt;
+&lt;p&gt;下面的STOP和CANCEL操作根本不会有任何帮助。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://blog.adisonhyh.com/categories/Android/"/>
+    
+    
+      <category term="翻译" scheme="http://blog.adisonhyh.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
   
   <entry>
     <title>从FrameCallback理解Choreographer原理及简单帧率监控应用</title>
